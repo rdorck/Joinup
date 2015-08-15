@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SignUp Page</title>
+    <!-- Handlebars.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS Stylesheet -->
+    <!-- Custom styles for this template -->
+    <link href="css/signup.css" rel="stylesheet">
+
+    <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Parse.js -->
+    <script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <form class="form-signin" action="/signup" method="post">
+            <h1 class="form-signin-heading">Sign Up</h1>
+            <h4>Enter the following information:</h4>
+
+            <label class="sr-only" for="username">Username<span style="color:red">*</span></label>
+            <input class='form-control' type="text" placeholder="username" value="" name="username" />
+
+            <label class="sr-only" for="password">Password<span style="color:red">*</span></label>
+            <input class='form-control' type="password" placeholder="password" value="" name="password" />
+
+            <label class="sr-only" for="fname">First Name<span style="color:red">*</span></label>
+            <input class='form-control' type="text" placeholder="First Name" value="" name="fname" />
+
+            <label class="sr-only" for="lname">Last Name<span style="color:red">*</span></label>
+            <input class='form-control' type="text" placeholder="Last Name" value="" name="lname" />
+
+            <label class="sr-only" for="email">Email<span style="color:red">*</span></label>
+            <input class='form-control' id="inputEmail" type="text" placeholder="Email: myName@email.com" value="" name="email" />
+
+            <label class="sr-only" for="phone">Phone #</label>
+            <input class='form-control' type="text" placeholder="Phone#: 800-555-1234" value="" name="phone" />
+            <hr>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
