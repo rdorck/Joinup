@@ -1,4 +1,3 @@
-
 // These two lines are required to initialize Express in Cloud Code.
  express = require('express');
  app = express();
@@ -9,28 +8,57 @@ app.set('view engine', 'ejs');    // Set the template engine
 app.use(express.bodyParser());    // Middleware for reading request body
 app.use(express.methodOverride()); // Middleware for receiving HTTP delete & put
 
-// // Example reading from the request query string of an HTTP get request.
+// // reading the request query string of HTTP GET request.
 // app.get('/test', function(req, res) {
 //   // GET http://example.parseapp.com/test?message=hello
 //   res.send(req.query.message);
 // });
-// Example reading from the request body of an HTTP post request.
+// // reading the request body of HTTP POST request.
 //app.post('/test', function(req, res) {
 //    // POST http://example.parseapp.com/test (with request body "message=hello")
 //    res.send(req.body.message);
 // });
-// path and HTTP verb using the Express routing API.
 
-app.get('/hello', function(req, res) {
-  res.render('hello', { username: req.body.username, password: req.body.password });
+//app.get('/hello', function(req, res) {
+//  res.render('hello', { title: "Hello Partner", username: req.body.username, password: req.body.password });
+//});
+//app.post('/hello', function(req, res) {
+//    /*
+//     * --> if in PostMan, select POST, Body section enter in
+//     *          { "username" : "someUsername" }
+//     * res.render is taking the 'value' from our JSON {key:value}
+//     */
+//    res.render('hello', {title: "Hello", username: req.body.username, password:req.body.password });
+//});
+
+app.get('/practice', function(req, res) {
+    res.render('practice', {
+        title: "Welcome Practice",
+        username: req.body.username,
+        categoryName: req.body.categoryName
+    });
 });
-app.post('/hello', function(req, res) {
-    /*
-     * --> if in PostMan, select POST, Body section enter in
-     *          { "username" : "someUsername" }
-     * res.render is taking the 'value' from our JSON {key:value}
-     */
-    res.render('hello', { username: req.body.username, password:req.body.password });
+app.post('/practice', function(req, res) {
+    var Category = Parse.Object.extend("Category");
+    query.find({
+        success: function(results) {
+            //alert("Successfully retrieved " + results.length + " scores.");
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                (function($) {
+                    $('#categoryTable').append('<tr><td>' + object.get('categoryName') + '</td></tr>');
+                })(jQuery);
+            }
+        },
+        error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
+    res.render('practice', {
+        title: "Practice",
+        username: req.body.username,
+        categoryName: req.body.categoryName
+    });
 });
 
 
@@ -45,6 +73,7 @@ app.post('/signup', function(req, res) {
     var password = req.body.password;
     var firstName = req.body.fname;
     var lastName = req.body.lname;
+    var sex = req.body.sex;
     var email = req.body.email;
     var phone = req.body.phone;
 
@@ -53,6 +82,7 @@ app.post('/signup', function(req, res) {
     user.set('password', password);
     user.set('firstName', firstName);
     user.set('lastName', lastName);
+    user.set('sex', sex);
     user.set('email', email);
     user.set('phone', phone);
 
@@ -71,7 +101,7 @@ app.get('/login', function(req, res) {
 // login user
 app.post('/login', function(req, res) {
     Parse.User.logIn(req.body.username, req.body.password).then(function(user) {
-        res.render('/profile');
+        res.redirect('/profile');
     }, function(error) {
         res.render('login', { flash: error.message });
     });
@@ -89,7 +119,7 @@ app.get('/addCategory', function(req, res) {
 });
 app.post('/addCategory', function(req, res) {
     var categoryName = req.body.categoryName;
-    var categoryImg = req.body.categoryImg;
+    var categoryImg = req.body.CategoryImg;
 
     var Category = Parse.Object.extend('Category');
     var category = new Category();
@@ -167,6 +197,7 @@ app.get('/settings', function(req, res) {
 
 // Load User Profile page, our Custom Hub
 app.get('/profile', function(req, res) {
+
    res.render('profile');
 });
 

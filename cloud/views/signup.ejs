@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 
 <head>
     <title>SignUp Page</title>
@@ -25,20 +25,25 @@
             <h1 class="form-signin-heading">Sign Up</h1>
             <h4>Enter the following information:</h4>
 
-            <label class="sr-only" for="username">Username<span style="color:red">*</span></label>
-            <input class='form-control' type="text" placeholder="username" value="" name="username" />
+            <label class="sr-only" for="username">Username</label>
+            <input class='form-control' type="text" placeholder="username" value="" name="username" required/>
 
-            <label class="sr-only" for="password">Password<span style="color:red">*</span></label>
-            <input class='form-control' type="password" placeholder="password" value="" name="password" />
+            <label class="sr-only" for="password">Password</label>
+            <input class='form-control' type="password" placeholder="password" value="" name="password" required/>
 
-            <label class="sr-only" for="fname">First Name<span style="color:red">*</span></label>
-            <input class='form-control' type="text" placeholder="First Name" value="" name="fname" />
+            <label class="sr-only" for="fname">First Name</label>
+            <input class='form-control' type="text" placeholder="First Name" value="" name="fname" required/>
 
-            <label class="sr-only" for="lname">Last Name<span style="color:red">*</span></label>
-            <input class='form-control' type="text" placeholder="Last Name" value="" name="lname" />
+            <label class="sr-only" for="lname">Last Name</label>
+            <input class='form-control' type="text" placeholder="Last Name" value="" name="lname" required/>
 
-            <label class="sr-only" for="email">Email<span style="color:red">*</span></label>
-            <input class='form-control' id="inputEmail" type="text" placeholder="Email: myName@email.com" value="" name="email" />
+            <label class="form-group.required" for="sex" style="padding-right: 25px">Sex:</label>
+            <input type="radio" name="sex" for="sex" value="female">Female
+            <input type="radio" name="sex" for="sex" value="male">Male
+            <br>
+
+            <label class="sr-only" for="email">Email</label>
+            <input class='form-control' type="email" placeholder="Email: myName@email.com" value="" name="email" required/>
 
             <label class="sr-only" for="phone">Phone #</label>
             <input class='form-control' type="text" placeholder="Phone#: 800-555-1234" value="" name="phone" />

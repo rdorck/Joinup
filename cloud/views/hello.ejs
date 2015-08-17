@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Sample App</title>
+    <title><%= title %></title>
   </head>
 
   <body>
@@ -11,9 +11,7 @@
     <p><%= password %>
     <br>
     <form method="post" action="/hello">
-        <input name="username" placeholder="username">
-        <br>
-        <input name="password" type="password" placeholder="password">
+        <input type="text" name="username" placeholder="username">
         <br>
         <input class="button" type="submit" value="Update Greeting">
     </form>

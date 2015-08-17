@@ -40,8 +40,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/profile">Profile</a></li>
-                <li><a href="/logout">Logout</a></li>
+                <li><a href="/profile"><span class="glyphicon glyphicon-user"></span>    Profile</a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
@@ -54,12 +54,12 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview<span class="sr-only">(current)</span></a></li>
-                <li><a href="/addCategory">Add Category</a></li>
-                <li><a href="/addQuestion">Add Question</a></li>
+                <li class="active"><a href="/dashboard"><span class="glyphicon glyphicon-th-list"></span>    Overview<span class="sr-only">(current)</span></a></li>
+                <li><a href="/addCategory"><span class="glyphicon glyphicon-plus"></span>    Add Category</a></li>
+                <li><a href="/addQuestion"><span class="glyphicon glyphicon-plus"></span>    Add Question</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-                <li><a href="/settings">Settings</a></li>
+                <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span>    Settings</a></li>
             </ul>
         </div>
 
@@ -91,8 +91,8 @@
             </div>
 
             <h2 class="sub-header">User Information</h2>
-            <h4><span style="color:red">! Warning ! : * could contain confidential information *</span></h4>
-            <h5><span style="color:green">** Security Tips:</span></h5>
+            <h4 class="alert alert-danger" style="color:red">! Warning :  could contain confidential information !</h4>
+            <h5 class="alert alert-success" style="color: green">** Security Tips:</h5>
             <ul>
                 <li style="color:green; list-style-type: square"> look out for peeping Toms</li>
                 <li style="color:green; list-style-type: square"> make sure this is your profile (logout if not)</li>
