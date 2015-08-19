@@ -1,3 +1,4 @@
+Parse.initialize("mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU", "jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7");
 // These two lines are required to initialize Express in Cloud Code.
  express = require('express');
  app = express();
@@ -31,40 +32,22 @@ app.use(express.methodOverride()); // Middleware for receiving HTTP delete & put
 //    res.render('hello', {title: "Hello", username: req.body.username, password:req.body.password });
 //});
 
-app.get('/practice', function(req, res) {
-    res.render('practice', {
-        title: "Welcome Practice",
-        username: req.body.username,
-        categoryName: req.body.categoryName
-    });
-});
-app.post('/practice', function(req, res) {
-    var Category = Parse.Object.extend("Category");
+app.get('/categories', function(req, res) {
+    var Categories = Parse.Object.extend('Category');
+    var query = new Parse.Query(Categories);
+    //query.equalTo("categoryName", "Manager");
     query.find({
-        success: function(results) {
-            //alert("Successfully retrieved " + results.length + " scores.");
-            for (var i = 0; i < results.length; i++) {
-                var object = results[i];
-                (function($) {
-                    $('#categoryTable').append('<tr><td>' + object.get('categoryName') + '</td></tr>');
-                })(jQuery);
-            }
-        },
-        error: function(error) {
-            alert("Error: " + error.code + " " + error.message);
+        success: function(results){
+            // do something with the 'results'
+            res.send(results);
+        }, error: function(error){
+            res.send(error.message);
         }
     });
-    res.render('practice', {
-        title: "Practice",
-        username: req.body.username,
-        categoryName: req.body.categoryName
-    });
 });
-
 
 // GET, render signUp page
 app.get('/signup', function(req, res) {
-    // render loads ../views/signup.ejs
     res.render('signup');
 });
 // signup new user
@@ -96,18 +79,18 @@ app.post('/signup', function(req, res) {
 
 // GET, render login page
 app.get('/login', function(req, res) {
-    res.redirect('/');
+    res.render('login');
 });
-// login user
 app.post('/login', function(req, res) {
     Parse.User.logIn(req.body.username, req.body.password).then(function(user) {
         res.redirect('/profile');
     }, function(error) {
-        res.render('login', { flash: error.message });
+        res.redirect('/');
     });
 });
 
-// GET method, brings up dashboard (the main user focal point)
+
+// GET, renders dashboard (the main focal point)
 app.get('/dashboard', function(req, res) {
     res.render('dashboard');
 });
@@ -128,21 +111,20 @@ app.post('/addCategory', function(req, res) {
     category.set('categoryImg', categoryImg);
 
     category.save().then(function(category) {
-        res.redirect('/addQuestion');
+        res.redirect('/addSubCategory');
     }, function(error) {
         res.render('addCategory', { flash: error.message });
     });
 });
-
 
 // Routes for adding sub-categories
 app.get('/addSubCategory', function(req, res) {
     res.render('addSubCategory');
 });
 app.post('/addSubCategory', function(req, res) {
+    var categoryParent = req.body.categoryParent;
     var subCategoryName = req.body.subCategoryName;
     var subCategoryImg = req.body.subCategoryImg;
-    var categoryParent = req.body.categoryParent;
 
     var SubCategory = Parse.Object.extend('SubCategory');
     var subcategory = new SubCategory();
@@ -158,12 +140,13 @@ app.post('/addSubCategory', function(req, res) {
     });
 });
 
-
 // Routes for adding questions
 app.get('/addQuestion', function(req, res) {
     res.render('addQuestion');
 });
 app.post('/addQuestion', function(req, res) {
+    var parentCategory = req.body.categoryParent;
+    var parentSubCategory = req.body.subCategoryParent;
     var questionText = req.body.questionText;
     var optionA = req.body.optionA;
     var optionB = req.body.optionB;
@@ -174,11 +157,16 @@ app.post('/addQuestion', function(req, res) {
     var Question = Parse.Object.extend("Question");
     var question = new Question();
 
+    question.set('parentCategory', parentCategory);
+    question.set('parentSubCategory', parentSubCategory);
     question.set('questionText', questionText);
-    question.set('optionA', optionA);
-    question.set('optionB', optionB);
-    question.set('optionC', optionC);
-    question.set('optionD', optionD);
+
+    // appends the options array
+    question.addUnique('options', optionA);
+    question.addUnique('options', optionB);
+    question.addUnique('options', optionC);
+    question.addUnique('options', optionD);
+
     question.set('answer', answer);
 
     question.save().then(function(question) {

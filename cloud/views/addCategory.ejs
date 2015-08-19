@@ -24,6 +24,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="ejs_production.js"></script>
+    <script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 </head>
 
 <body>
@@ -58,6 +59,7 @@
                 <ul class="nav nav-sidebar">
                     <li><a href="/dashboard"><span class="glyphicon glyphicon-th-list"></span>    Overview</a></li>
                     <li class="active"><a href="/addCategory"><span class="glyphicon glyphicon-plus"></span>    Add Category</a></li>
+                    <li><a href="/addSubCategory"><span class="glyphicon glyphicon-plus"></span>    Add Sub-Category</a></li>
                     <li><a href="/addQuestion"><span class="glyphicon glyphicon-plus"></span>    Add Question</a></li>
                 </ul>
                 <ul class="nav nav-sidebar">
@@ -90,45 +92,6 @@
                 </form>
                 <br>
 
-        <!-- START OF ADD SUB CATEGORY -->
-                <hr>
-                <h4 class="sub-header">Add Sub Category</h4>
-                <form class="form-horizontal" action="/addSubCategory" method="post">
-
-                    <div class="form-group">
-                        <label for="CategorySelect" class="col-sm-2 control-label">Select Parent Category:</label>
-                        <div class="col-sm-4">
-                            <select name="categoryParent" required>
-                                <option value="category1">category 1</option>
-                                <option value="category2">category 2</option>
-                                <option value="category3">category 3</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Tag" class="col-sm-2 control-label">Add Sub Category Name:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" value="" name="subCategoryName" placeholder="Enter Sub-Category Name">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ImageUpload" class="col-sm-2 control-label">Sub Category Image:</label>
-                        <div class="col-sm-4">
-                            <input type="file" name="subCategoryImg">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-offset-1 col-sm-8">
-                            <button type="submit" class="btn btn-default btn-primary">Add Sub Category</button>
-                            <!--<button type="submit" class="btn btn-primary" href="/addQuestion">Next</button>-->
-                        </div>
-                    </div>
-                </form>
-                <br>
-
                 <h4 class="sub-header">View Category</h4>
                 <div class="col-sm-9 col-md-8  main">
 
@@ -139,15 +102,18 @@
                                 <th>Id</th>
                                 <th>Category Photo</th>
                                 <th>Category Name</th>
+                                <th>Edit Category</th>
                                 <th>Delete Category</th>
                             </tr>
                             </thead>
 
                             <tbody>
+
                             <tr>
                                 <td>23</td>
                                 <td><img src="img/ConnectHub_Logo_Icon_Blue.jpg" height="50px" width="50px"></td>
                                 <td>Sports</td>
+                                <td><a href="deleteCategory.php?cid=23">Edit</a></td>
                                 <td><a href="deleteCategory.php?cid=23">Delete</a></td>
                             </tr>
 
@@ -155,6 +121,7 @@
                                 <td>24</td>
                                 <td><img src="img/ConnectHub_Logo_Icon_Yellow.jpg" height="50px" width="50px"></td>
                                 <td>General Knowledge</td>
+                                <td><a href="deleteCategory.php?cid=23">Edit</a></td>
                                 <td><a href="deleteCategory.php?cid=24">Delete</a></td>
                             </tr>
 
@@ -162,6 +129,7 @@
                                 <td>25</td>
                                 <td><img src="img/ConnectHub_Logo_Icon_Green.jpg" height="50px" width="50px"></td>
                                 <td>Computer</td>
+                                <td><a href="deleteCategory.php?cid=23">Edit</a></td>
                                 <td><a href="deleteCategory.php?cid=25">Delete</a></td>
                             </tr>
 
