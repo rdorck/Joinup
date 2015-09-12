@@ -130,42 +130,46 @@ app.get('/dashboard', function(req, res) {
 app.get('/addCategory', function(req, res) {
     res.render('addCategory');
 });
-//app.post('/addCategory', function(req, res) {
-//    var categoryName = req.body.categoryName;
-//    var categoryImg = req.body.CategoryImg;
-//
-//    var Category = Parse.Object.extend('Category');
-//    var category = new Category();
-//
-//    category.set('categoryName', categoryName);
-//    category.set('categoryImg', categoryImg);
-//    category.set('createdBy', Parse.User.current());
-//
-//    category.save().then(function(category) {
-//        res.redirect('/categories');
-//    }, function(error) {
-//        res.render('addCategory', { flash: error.message });
-//    });
-//});
 app.post('/addCategory', function(req, res) {
+    var i = 0;
+    var categoryID = i;
+    var categoryName = req.body.categoryName;
+    var categoryImg = req.body.CategoryImg;
+
     var Category = Parse.Object.extend('Category');
     var category = new Category();
 
-    category.set("createdBy", Parse.User.current());
-    category.set("categoryName", req.body.categoryName);
-    category.set("categoryImg", req.body.categoryImg);
+    category.set('categoryID', categoryID);
+    category.set('categoryName', categoryName);
+    category.set('categoryImg', categoryImg);
+    category.set('createdBy', Parse.User.current());
 
-
-    res.json(category);
     category.save().then(function(category) {
-        //res.redirect('/api/categories');
-
+        res.redirect('back'); // redirects to /addCategory
     }, function(error) {
-        res.render('addCategory', {
-            flash: error.message
-        });
+        res.render('addCategory', { flash: error.message });
     });
+    i++;
 });
+//app.post('/addCategory', function(req, res) {
+//    var Category = Parse.Object.extend('Category');
+//    var category = new Category();
+//
+//    category.set("createdBy", Parse.User.current());
+//    category.set("categoryName", req.body.categoryName);
+//    category.set("categoryImg", req.body.categoryImg);
+//
+//
+//    res.json(category);
+//    category.save().then(function(category) {
+//        //res.redirect('/api/categories');
+//
+//    }, function(error) {
+//        res.render('addCategory', {
+//            flash: error.message
+//        });
+//    });
+//});
 
 // Routes for adding sub-categories
 app.get('/addSubCategory', function(req, res) {
