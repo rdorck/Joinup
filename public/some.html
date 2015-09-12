@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>some practice</title>
+    <meta name="description" content="My Parse App">
+    <meta name="viewport" content="width=device-width">
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+    <!-- Handlebars.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS Stylesheet -->
+    <link href="css/index.css" rel="stylesheet">
+
+    <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Parse.js -->
+    <script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+    <script type="text/javascript" src="ejs_production.js"></script>
+
+    <script type="text/javascript">
+        function newRow() {
+
+        }
+    </script>
+
+</head>
+
+<body>
+<div id="div">
+    <h1 style="color: #ffd700">SOME is a New Concept</h1>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h2 class="page-header" style="text-align: center; color: #ffffff">Quiz Admin Panel</h2>
+        <h4 class="sub-header" style="color: #ffd700">Add Category</h4>
+
+        <form class="form-horizontal" action="/addCategory" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Category Name:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="categoryName" value="" placeholder="Enter Category Name" required>
+                    </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-8">
+                    <button type="submit" class="btn btn-default btn-primary">Add Category</button>
+                </div>
+            </div>
+        </form>
+
+        <h4 class="sub-header" style="color: #ffd700">View Category</h4>
+        <div class="col-sm-9 col-md-8  main">
+            <div class="table-responsive">
+
+                <table class="table table-striped" id="categoryTable">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Category Photo</th>
+                            <th>Category Name</th>
+                            <th>Edit Category</th>
+                            <th>Delete Category</th>
+                        </tr>
+                    </thead>
+                    <tbody id="catTableBody">
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+    <script>
+        //Parse.initialize("mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU", "jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7");
+
+    </script>
+
+
+</div>
+</body>
+</html>

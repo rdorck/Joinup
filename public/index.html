@@ -28,25 +28,26 @@
     <!-- Parse.js -->
     <script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 
+
 </head>
 
 <body>
-<div style="background-color: #204d74; height: 75px" >
-    <img src="img/ConnectHub_Logo_Icon.png" style="width:75px; height:65px; position: absolute; margin-left: 300px">
-    <h1>Administration Login</h1>
+<div style="background-color: #ffd700; height: 75px" >
+    <h1>" Leggo My Logo! "</h1>
 </div>
 
     <div class="container">
           <form class="form-signin" method="post" action="/login">
-              <h2 class="form-signin-heading">Please Sign-in</h2>
+              <h3 class="form-signin-heading">Log in or <span style="color: #ffd700">Sign up</span></h3>
+              <br>
               <input type="text" name="username" value="" class="form-control" placeholder="username" required="" autofocus="">
               <input type="password" name="password" value="" class="form-control" placeholder="password" required="">
               <br>
 
-              <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+              <button style="color: #000000; background-color: #ffd700" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
 
               <!-- href="%%" will link us to signup.ejs & hello.ejs, respectively -->
-              <a class="btn btn-lg btn-primary btn-block" href="signup">Sign-Up</a>
+              <a style="color: #000000; background-color: #ffd700" class="btn btn-lg btn-primary btn-block" href="signup">Sign-Up</a>
           </form>
         <br>
     </div>
