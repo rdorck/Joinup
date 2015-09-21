@@ -32,13 +32,17 @@ app.use(express.methodOverride()); // Middleware for receiving HTTP delete & put
 //    res.render('hello', {title: "Hello", username: req.body.username, password:req.body.password });
 //});
 
-app.get('/api/categories', function(req, res) {
+app.get('/api/category/', function(req, res) {
     var Categories = Parse.Object.extend('Category');
     var query = new Parse.Query(Categories);
+    var names = [];
     query.find({
         success: function(results){
             // do something with the 'results'
-            res.send(results);
+            for(var i=0; i < results.length; i++){
+                names[i] = results[i].get('categoryName');
+            }
+            res.send(names);
         }, error: function(error){
             res.send(error.message);
         }
@@ -51,6 +55,7 @@ app.get('/signup', function(req, res) {
 });
 // signup new user
 app.post('/signup', function(req, res) {
+    //Set our request values to values for Parse
     var username = req.body.username;
     var password = req.body.password;
     var firstName = req.body.fname;
@@ -68,14 +73,8 @@ app.post('/signup', function(req, res) {
     user.set('email', email);
     user.set('phone', phone);
 
-    var roleACL = new Parse.ACL();
-    roleACL.setPublicReadAccess(true);
-    var role = new Parse.Role("normUser", roleACL);
-    role.save();
-
     user.signUp().then(function(user) {
-        res.send(role);
-        //res.redirect('/');
+        res.redirect('/');
     }, function(error) {
         res.render('signup', { flash: error.message });
     });
@@ -94,26 +93,29 @@ app.post('/login', function(req, res) {
         var current = Parse.User.current();
         var sesh = current.getSessionToken();
         var seshToString = sesh.toString();
-        var acl = new Parse.ACL();
-        var myACL = acl.toJSON();
+        var roleACL = new Parse.ACL();
+        roleACL.setWriteAccess(user, true);
+        roleACL.setReadAccess(user, true);
+        roleACL.setPublicWriteAccess(false);
+        roleACL.setPublicReadAccess(false);
+        var myACL_publicRead = roleACL.getPublicReadAccess();
+        var myACL_publicWrite = roleACL.getPublicWriteAccess();
 
-        var me = Parse.User.become(seshToString).then(function(me) {
-            res.send("<head><script src='//www.parsecdn.com/js/parse-1.5.0.min.js'></script></head>" +
-                "<body>" +
-                    "<script type='text/javascript'>Parse.initialize('mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU', 'jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7')</script>" +
-                    "I am --> " + me.getUsername() + "<br>" + "My session-token is currently --> " + me.getSessionToken()
-                    + "<br>" + "My ACL is --> " + myACL +  " " + "<br>" + "Current is actually current user --> " + me.isCurrent()
-                + "</body>");
+        //var me = Parse.User.become(seshToString).then(function(me) {
+        //    res.send("<head><script src='//www.parsecdn.com/js/parse-1.5.0.min.js'></script></head>" +
+        //        "<body>" +
+        //            "<script type='text/javascript'>Parse.initialize('mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU', 'jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7')</script>" +
+        //            "I am --> " + me.getUsername() + "<br>" + "My session-token is currently --> " + me.getSessionToken()
+        //            + "<br>" + "My ACL's public read access is --> " + myACL_publicRead + "<br>" + "My ACL's public write access is --> " + myACL_publicWrite +
+        //        "<br>" + "My write access is --> " + roleACL.getWriteAccess(user) + "<br>" +
+        //            "My read access is --> " + roleACL.getReadAccess(user) + "<br>"
+        //        + "Current === current user --> " + me.isCurrent() + "</body>");
+        //
+        //}, function(error){
+        //    flash:error.message
+        //});
 
-        }, function(error){
-            flash:error.message
-        });
-
-        //res.send("<head><link href='bootstrap-3.3.4-dist/css/bootstrap.min.css' rel='stylesheet'><script type='text/javascript' src='ejs_production.js'></script> <script src='//www.parsecdn.com/js/parse-1.5.0.min.js'></script></head><body style='background-color: #5e5e5e'>" + " " + "<h1><span style='color:#ffd700'>Welcome </span></h1>"
-        //+ " current -> " + current.getUsername() + "   " + current.getSessionToken() +"<br>" + " is current really current... " + current.isCurrent() +
-        //    '<form method="post" action="/profile"><div><button style="color: #000000; background-color: #ffd700" class="btn btn-lg btn-primary btn-block" type="submit">profile</button></div></form> </body>');
-
-        //res.redirect('/profile');
+        res.redirect('/profile');
     }, function(error) {
         res.redirect('/');
     });
@@ -125,51 +127,52 @@ app.get('/dashboard', function(req, res) {
     res.render('dashboard');
 });
 
+app.get('/some', function(req, res) {
+   res.render('some', {categoryID: req.body.categoryID, categoryName: req.body.categoryName});
+});
+app.post('/some', function(req, res) {
+    var catName = req.body.categoryName;
+    var categoryId = 1;
+
+    //var query = new Parse.Query("Category");
+    //query.find().then(function(results) {
+    //    // query found our Object
+    //    res.send(results); // all categories queried
+    //}, function(error) {
+    //    res.send({flash: error.message});
+    //});
+
+    res.render('some', {categoryID: categoryId, categoryName: catName}); //updates EJS values in our View
+});
+
 
 // Routes for adding categories
 app.get('/addCategory', function(req, res) {
     res.render('addCategory');
 });
 app.post('/addCategory', function(req, res) {
-    var i = 0;
-    var categoryID = i;
     var categoryName = req.body.categoryName;
     var categoryImg = req.body.CategoryImg;
 
     var Category = Parse.Object.extend('Category');
     var category = new Category();
 
-    category.set('categoryID', categoryID);
     category.set('categoryName', categoryName);
     category.set('categoryImg', categoryImg);
     category.set('createdBy', Parse.User.current());
 
     category.save().then(function(category) {
-        res.redirect('back'); // redirects to /addCategory
+        /* category was successfully saved.  Now display
+         *  the same page with table populated w/ results
+         *  from query on all categories
+         */
+
+        //res.render('back'); // renders addCategory
     }, function(error) {
         res.render('addCategory', { flash: error.message });
     });
-    i++;
 });
-//app.post('/addCategory', function(req, res) {
-//    var Category = Parse.Object.extend('Category');
-//    var category = new Category();
-//
-//    category.set("createdBy", Parse.User.current());
-//    category.set("categoryName", req.body.categoryName);
-//    category.set("categoryImg", req.body.categoryImg);
-//
-//
-//    res.json(category);
-//    category.save().then(function(category) {
-//        //res.redirect('/api/categories');
-//
-//    }, function(error) {
-//        res.render('addCategory', {
-//            flash: error.message
-//        });
-//    });
-//});
+
 
 // Routes for adding sub-categories
 app.get('/addSubCategory', function(req, res) {

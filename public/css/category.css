@@ -44,9 +44,10 @@ body {
         padding: 20px;
         overflow-x: hidden;
         overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        background-color: #BEBE00;
+        background-color: #ffd700; /*#BEBE00;*/
         border-right: 1px solid #eee;
     }
+
 }
 
 /* Sidebar navigation */
@@ -67,6 +68,15 @@ body {
     background-color: #5e5e5e;
     color: #ffd700;
 }
+
+/*li.hide {*/
+    /*visibility: hidden;*/
+/*}*/
+/*@media (min-width: 460px){*/
+    /*li.hide {*/
+        /*visibility: visible;*/
+    /*}*/
+/*}*/
 
 
 /*

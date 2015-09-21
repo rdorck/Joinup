@@ -4,15 +4,26 @@ body {
     background-color: #5e5e5e;
 }
 
+body div.logo-div {
+    background-color: #ffd700;
+    height: 75px;
+    position: relative;
+}
+
 body h1 {
-    font-size: 60px;
+    font-size: 50px;
     text-align:center;
     color: #000000;
+    position: relative;
 }
 
 body h3 {
     text-align: center;
     color: #ffffff;
+}
+
+a {
+    color: #ffd700;
 }
 
 .form-signin {

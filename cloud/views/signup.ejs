@@ -11,17 +11,13 @@
     <!-- Custom styles for this template -->
     <link href="css/signup.css" rel="stylesheet">
 
-    <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Parse.js -->
-    <script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 </head>
 
 <body>
+
     <div class="container">
-        <img id="createAccBanner" src="img/createAccBanner.png" style="margin-left: 245px">
+        <img id="createAccBanner" src="img/createAccBanner.png">
 
         <form class="form-signin" action="/signup" method="post">
             <h3>Enter the following information:</h3>
@@ -38,9 +34,11 @@
             <label class="sr-only" for="lname">Last Name</label>
             <input class='form-control' type="text" placeholder="Last Name" value="" name="lname" required/>
 
-            <label class="form-group.required" for="sex" style="padding-right: 25px">Sex:</label>
-            <input type="radio" name="sex" for="sex" value="female">Female
-            <input type="radio" name="sex" for="sex" value="male">Male
+            <label class="form-control form-group.required" for="sex" style="color:lightgray">
+                <input class="" type="radio" name="sex" for="sex" value="female">Female
+                <input class="" type="radio" name="sex" for="sex" value="male">Male
+            </label>
+
             <br>
 
             <label class="sr-only" for="email">Email</label>
@@ -54,6 +52,18 @@
         </form>
     </div>
 
+
+    <!-- EJS (Embedded JS)-->
+    <script type="text/javascript" src="javascript/ejs_production.js"></script>
+
+    <!-- Parse.js -->
+    <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- Bootstrap JS (MUST come AFTER jQuery line above) -->
+    <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
