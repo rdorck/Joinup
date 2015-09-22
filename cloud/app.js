@@ -128,19 +128,14 @@ app.get('/dashboard', function(req, res) {
 });
 
 app.get('/some', function(req, res) {
-   res.render('some', {categoryID: req.body.categoryID, categoryName: req.body.categoryName});
+    var Category = Parse.Object.extend('Category');
+    var query = new Parse.Query(Category);
+
+    res.render('some', {categoryID: " ", categoryName: " "});
 });
 app.post('/some', function(req, res) {
     var catName = req.body.categoryName;
     var categoryId = 1;
-
-    //var query = new Parse.Query("Category");
-    //query.find().then(function(results) {
-    //    // query found our Object
-    //    res.send(results); // all categories queried
-    //}, function(error) {
-    //    res.send({flash: error.message});
-    //});
 
     res.render('some', {categoryID: categoryId, categoryName: catName}); //updates EJS values in our View
 });

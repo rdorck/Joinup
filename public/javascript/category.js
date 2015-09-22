@@ -14,13 +14,14 @@ $(document).ready(function(){
             for(var i=0; i < results.length; i++){
                 names[i] = results[i].get('categoryName');
                 var table = document.getElementById("tableBody");
+                $(".success").show();
                 var row = table.insertRow(0);
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
                 cell1.innerHTML = i;
                 cell2.innerHTML = names[i];
             }
-
+            return names;
         }, error: function(error){
             res.send(error.message);
         }
@@ -40,11 +41,10 @@ $(document).ready(function(){
             var row = table.insertRow(0);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
-            cell1.innerHTML = i + 1;
-            i++;
+            cell1.innerHTML = names.length;
             cell2.innerHTML = category;
         }, function(error) {
-            alert('addCategory', { flash: error.message });
+            alert('some', { flash: error.message });
         });
     });
     alert("loaded");
