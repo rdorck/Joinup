@@ -1,33 +1,37 @@
 <html>
 <head>
     <title>Some Category</title>
+    <!-- Bootstrap -->
+    <link href="bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS Stylesheet -->
+    <link href="css/index.css" rel="stylesheet">
 </head>
 
 <body>
     <h4 class="sub-header" style="color: #ffd700">Add Category</h4>
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Category</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-            <tr class="tableBody-row">
-                <td id="tableCatID"><%= categoryID %></td>
-                <td><%= categoryName %></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <form action="/some" method="post">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr class="tableBody-row">
+                    <td id="tableCatID"><%= categoryID %></td>
+                    <td><%= categoryName %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <form id="some-form">
         <div class="form-group">
             <label class="col-sm-2 control-label">Category Name:</label>
             <div class="col-sm-4">
                 <input id="categoryNameInput" type="text" class="form-control" name="categoryName" value="" placeholder="Enter Category Name" required>
             </div>
-            <button  class="btn btn-default btn-primary">Add Category</button>
+            <button type="submit" class="btn btn-default btn-primary">Add Category</button>
         </div>
     </form>
 
@@ -40,15 +44,16 @@
     <!-- EJS (Embedded JS)-->
     <script type="text/javascript" src="javascript/ejs_production.js"></script>
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
     <!-- Parse.js -->
     <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
     <!-- Our Javascript file -->
     <script type="text/javascript" src="javascript/category.js"></script>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
     <!-- Bootstrap JS (MUST come AFTER jQuery line above) -->
     <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
 
