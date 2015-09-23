@@ -130,42 +130,40 @@ app.get('/dashboard', function(req, res) {
 app.get('/some', function(req, res) {
     var Category = Parse.Object.extend('Category');
     var query = new Parse.Query(Category);
-
     res.render('some', {categoryID: " ", categoryName: " "});
 });
 app.post('/some', function(req, res) {
     var catName = req.body.categoryName;
     var categoryId = 1;
-
     res.render('some', {categoryID: categoryId, categoryName: catName}); //updates EJS values in our View
 });
 
 
 // Routes for adding categories
 app.get('/addCategory', function(req, res) {
-    res.render('addCategory');
+    res.render('addCategory', {categoryID: " ", categoryName: " "});
 });
 app.post('/addCategory', function(req, res) {
-    var categoryName = req.body.categoryName;
-    var categoryImg = req.body.CategoryImg;
-
-    var Category = Parse.Object.extend('Category');
-    var category = new Category();
-
-    category.set('categoryName', categoryName);
-    category.set('categoryImg', categoryImg);
-    category.set('createdBy', Parse.User.current());
-
-    category.save().then(function(category) {
-        /* category was successfully saved.  Now display
-         *  the same page with table populated w/ results
-         *  from query on all categories
-         */
-
-        //res.render('back'); // renders addCategory
-    }, function(error) {
-        res.render('addCategory', { flash: error.message });
-    });
+    //var categoryName = req.body.categoryName;
+    //var categoryImg = req.body.CategoryImg;
+    //var Category = Parse.Object.extend('Category');
+    //
+    //var category = new Category();
+    //category.set('categoryName', categoryName);
+    //category.set('categoryImg', categoryImg);
+    //category.set('createdBy', Parse.User.current());
+    //
+    //category.save().then(function(category) {
+    //    /* category was successfully saved.  Now display
+    //     *  the same page with table populated w/ results
+    //     *  from query on all categories
+    //     */
+    //    res.render('addCategory');
+    //    //res.render('back'); // renders addCategory
+    //}, function(error) {
+    //    res.render('addCategory', { flash: error.message });
+    //});
+    res.render('addCategory');
 });
 
 

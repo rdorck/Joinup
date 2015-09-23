@@ -64,17 +64,17 @@
                 <h2 class="page-header">Quiz Admin Panel</h2>
                 <h4 class="sub-header">Add Category</h4>
 
-                <form class="form-horizontal" action="/addCategory" method="post">
+                <form class="form-horizontal" id="category-form">
                     <div class="form-group">
                         <label for="Tag" class="col-sm-2 control-label">Category Name:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="categoryName" value="" placeholder="Enter Category Name" required>
+                            <input type="text" class="form-control" id="categoryNameInput" name="categoryName" value="" placeholder="Enter Category Name" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="ImageUpload" class="col-sm-2 control-label">Category Image:</label>
                         <div class="col-sm-4">
-                            <input type="file" value="" name="categoryImg">
+                            <input type="file" id="category-img-input" value="" name="categoryImg">
                         </div>
                     </div>
                     <div class="form-group">
@@ -88,7 +88,7 @@
                 <h4 class="sub-header">View Category</h4>
                 <div class="col-sm-9 col-md-8  main">
                     <div class="table-responsive">
-                        <table class="table table-striped" id="categoryTable">
+                        <table class="table table-striped table-hover table-bordered" id="categoryTable">
                             <thead>
                             <tr>
                                 <th>Id</th>
@@ -98,12 +98,13 @@
                             </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody id="tableBody" style="display: none" class="success">
                                 <tr class="categoryTable-bodyRow">
-                                    <td id="category-id"></td>
-                                    <td id="categoryNameData"></td>
-                                    <td><a href="">Edit</a></td>
-                                    <td><a href="deleteCategory.php?cid=23">Delete</a></td>
+                                    <td id="category-id"><%= categoryID %></td>
+                                    <td id="categoryNameData"><%= categoryName %></td>
+                                    <td></td>
+                                    <td></td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -118,6 +119,7 @@
     <script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/category.js"></script>
     <!-- Bootstrap JS (MUST come AFTER jQuery line above) -->
     <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
 
