@@ -32,8 +32,8 @@ $(document).ready(function(){
                     var cell4 = row.insertCell(3); // Delete button spot
                     cell1.innerHTML = i;
                     cell2.innerHTML = names[i];
-                    cell3.innerHTML = "<a href=''>Edit</a>";
-                    cell4.innerHTML = "<a href=''>Delete</a>";
+                    cell3.innerHTML = "<button>Edit</button>";
+                    cell4.innerHTML = "<button class='deleteButton'>Delete</button>";
                 }
                 return names;
             }, error: function(error){
@@ -41,6 +41,24 @@ $(document).ready(function(){
             }
         });
     }
+
+    $("table").on('click', '.deleteButton', function(e){
+        e.preventDefault();
+        // deletes the specified row from table
+        var table = document.getElementById("tableBody");
+        var row = this.parentNode.parentNode;
+        var gone = row.parentNode.removeChild(row);
+
+        // still need to destroy it from Parse
+        console.log(gone.innerText);
+
+
+        //var array = [gone];
+        //console.log(array);
+
+
+
+    });
 
     $("#category-form").submit(function(event) {
         event.preventDefault();
@@ -97,6 +115,4 @@ $(document).ready(function(){
         }
     });
 
-
-    alert("loaded");
 });

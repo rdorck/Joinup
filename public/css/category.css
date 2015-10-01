@@ -113,6 +113,12 @@ body {
     background-color: #5e5e5e;
 }
 
+.table-hover:hover {
+    color: #286090;
+}
+table button:hover {
+    background-color: #ffd700;
+}
 
 
 
