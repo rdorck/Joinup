@@ -42,6 +42,33 @@ $(document).ready(function(){
         });
     }
 
+    function destroyed(name){
+        //console.log("name is " + name);
+        var query = new Parse.Query(Category);
+        query.equalTo("categoryName", name);
+        query.find({
+            success: function(results){
+                console.log("Query successfully found " + results[0].id + " " + name);
+                query.get(results[0].id, {
+                    success: function(object){
+                        console.log(object.id);
+                        object.destroy({
+                            success: function(){
+                                alert("Category was deleted successfully");
+                            }, error: function(error) {
+                                res.send(error.message);
+                            }
+                        });
+                    }, error: function(error){
+                        res.send(error.message);
+                    }
+                });
+            }, error: function(error){
+                res.send(error.message);
+            }
+        });
+    }
+
     $("table").on('click', '.deleteButton', function(e){
         e.preventDefault();
         // deletes the specified row from table
@@ -50,13 +77,10 @@ $(document).ready(function(){
         var gone = row.parentNode.removeChild(row);
 
         // still need to destroy it from Parse
-        console.log(gone.innerText);
+        var destroyer = gone.cells[1].innerText  // category name we seek to destroy
+        //console.log(destroyer); // checking name we want to delete is correct
 
-
-        //var array = [gone];
-        //console.log(array);
-
-
+        destroyed(destroyer); //function call to destroy desired object
 
     });
 
