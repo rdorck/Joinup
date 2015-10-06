@@ -113,11 +113,25 @@ body {
     background-color: #5e5e5e;
 }
 
+table th {
+    color: #ffd700;
+}
+
+table th#deleteHead {
+    color: white;
+    background-color: red;
+}
+
 .table-hover:hover {
     color: #286090;
 }
 table button:hover {
     background-color: #ffd700;
+}
+
+table button.deleteButton:hover {
+    color: white;
+    background-color: red;
 }
 
 

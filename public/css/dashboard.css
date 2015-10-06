@@ -1,8 +1,3 @@
-/*
- * Base structure
- */
-
-/* Move down content because we have a fixed navbar that is 50px tall */
 body {
     padding-top: 50px;
 }
@@ -44,9 +39,10 @@ body {
         padding: 20px;
         overflow-x: hidden;
         overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        background-color: #f5f5f5;
+        background-color: #ffd700; /*#BEBE00;*/
         border-right: 1px solid #eee;
     }
+
 }
 
 /* Sidebar navigation */
@@ -56,6 +52,7 @@ body {
     margin-left: -20px;
 }
 .nav-sidebar > li > a {
+    color: #000000;
     padding-right: 20px;
     padding-left: 20px;
 }
@@ -63,7 +60,17 @@ body {
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
     color: #fff;
-    background-color: #428bca;
+    background-color: #5e5e5e;
+    color: #ffd700;
+}
+
+li.hide {
+    visibility: hidden;
+}
+@media (min-width: 460px){
+    li.hide {
+        visibility: visible;
+    }
 }
 
 
@@ -84,22 +91,40 @@ body {
     margin-top: 0;
 }
 
-
-/*
- * Placeholder dashboard ideas
- */
-
-.placeholders {
-    margin-bottom: 30px;
+.main h2{
     text-align: center;
+    color: #ffd700;
 }
-.placeholders h4 {
-    margin-bottom: 0;
+
+.main h4 {
+    color: #ffd700;
 }
-.placeholder {
-    margin-bottom: 20px;
+
+.main .control-label {
+    color: #ffffff;
 }
-.placeholder img {
-    display: inline-block;
-    border-radius: 50%;
+
+body {
+    background-color: #5e5e5e;
 }
+
+body h1#dashboard-heading {
+    color: #ffd700;
+    text-align: center;
+    font-size: 60px;
+}
+
+table th {
+    color: #ffd700;
+}
+
+table th#reward-head {
+    color: white;
+    background-color: limegreen;
+}
+
+table button.reward-button:hover {
+    color: white;
+    background-color: limegreen;
+}
+

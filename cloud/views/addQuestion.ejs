@@ -63,16 +63,13 @@
             <h2 class="page-header">Quiz Question Panel</h2>
             <h4 class="sub-header">Add Question</h4>
 
-            <form class="form-horizontal" action="/addQuestion" method="post">
+            <form class="form-horizontal" id="question-form">
                 <div class="form-group">
                     <label for="CategorySelect" class="col-sm-2 control-label">Select Parent Category:</label>
                     <div class="col-sm-4">
-
                         <!-- every question has a category (required) but may not have a sub-category (not required)-->
-                        <select name="parentCategory" required>
-                            <option value="" name="parent">category 1</option>
-                            <option value="" name="parent">category 2</option>
-                            <option value="" name="parent">category 3</option>
+                        <select name="parentCategory" id="category-selector" required>
+
                         </select>
                     </div>
                 </div>
@@ -80,10 +77,8 @@
                 <div class="form-group">
                     <label for="subCategorySelect" class="col-sm-2 control-label">Select Sub-Category:</label>
                     <div class="col-sm-4">
-                        <select name="parentSubCategory">
-                            <option value="">sub-category 1</option>
-                            <option value="">sub-category 2</option>
-                            <option value="">sub-category 3</option>
+                        <select name="parentSubCategory" id="subCategory-selector">
+
                         </select>
                     </div>
                 </div>
@@ -91,23 +86,23 @@
                 <div class="form-group">
                     <label for="Tag" class="col-sm-2 control-label">Add Question:</label>
                     <div class="col-mg-4">
-                        <input type="textarea" class="form-control" value="" name="questionText" placeholder="enter question here" required>
+                        <input type="textarea" id="question-input" class="form-control" value="" name="questionText" placeholder="enter question here" required>
                     </div>
                     <br>
                     <label for="Tag" class="col-sm-2 control-label"><span style="color: green">Solution </span>Options:</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" value="" name="optionA" placeholder="enter option A || TRUE" required>
-                        <input type="text" class="form-control" value="" name="optionB" placeholder="enter option B || FALSE" required>
-                        <input type="text" class="form-control" value="" name="optionC" placeholder="enter option C" >
-                        <input type="text" class="form-control" value="" name="optionD" placeholder="enter option D" >
-                        <input type="text" class="form-control" value="" name="answer" placeholder="correct answer (ie. optionA)" required>
+                        <input type="text" id="optionA" class="form-control" value="" name="optionA" placeholder="enter option A || TRUE" required>
+                        <input type="text" id="optionB" class="form-control" value="" name="optionB" placeholder="enter option B || FALSE" required>
+                        <input type="text" id="optionC" class="form-control" value="" name="optionC" placeholder="enter option C" >
+                        <input type="text" id="optionD" class="form-control" value="" name="optionD" placeholder="enter option D" >
+                        <input type="text" id="answer" class="form-control" value="" name="answer" placeholder="correct answer (ie. optionA)" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="ImageUpload" class="col-sm-2 control-label">Question Image:</label>
                     <div class="col-sm-4">
-                        <input type="file" name="questionImg">
+                        <input id="question-img-input" type="file" name="questionImg">
                     </div>
                 </div>
 
@@ -128,35 +123,22 @@
             <h4 class="sub-header">View Questions</h4>
             <div class="col-sm-9 col-md-8  main">
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-bordered">
                         <thead>
                         <tr>
                             <th>questionId</th>
-                            <th>Question Photo</th>
                             <th>Question</th>
-                            <th>Parent Category</th>
                             <th>Edit Question</th>
-                            <th>Delete Question</th>
+                            <th id="deleteHead">Delete Question</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableBody">
 
                         <tr>
-                            <td>5</td>
-                            <td><img src="img/ConnectHub_Logo_Icon_Red.jpg" height="50px" width="50px"></td>
-                            <td>Sports</td>
-                            <td>General Knowledge</td>
-                            <td><a href="deleteCategory.php?cid=23">Edit</a></td>
-                            <td><a href="deleteSubCategory.php?cid=5">Delete</a></td>
-                        </tr>
-
-                        <tr>
-                            <td>6</td>
-                            <td><img src="img/ConnectHub_Logo_Icon_LightBlue.jpg" height="50px" width="50px"></td>
-                            <td>Cricket</td>
-                            <td>Sports</td>
-                            <td><a href="deleteCategory.php?cid=23">Edit</a></td>
-                            <td><a href="deleteSubCategory.php?cid=6">Delete</a></td>
+                            <td><%= questionId %></td>
+                            <td><%= questionName %></td>
+                            <td></td>
+                            <td></td>
                         </tr>
 
                         </tbody>
@@ -168,11 +150,13 @@
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascript/ejs_production.js"></script>
+<script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="javascript/question.js"></script>
+<!-- Bootstrap JS (MUST come AFTER jQuery line above) -->
+<script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>

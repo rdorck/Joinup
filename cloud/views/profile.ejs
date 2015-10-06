@@ -89,22 +89,25 @@
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Games</th>
-                        <th>Attempted Points</th>
-                        <th>Total Points</th>
-                        <th>Date Played</th>
-                    </tr>
+                        <tr>
+                            <th>Id</th>
+                            <th>Badges</th>
+                            <th>Games</th>
+                            <th>Attempted Points</th>
+                            <th>Total Points</th>
+                            <th>Date Played</th>
+
+                        </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td></td>
+                            <td id="badgeIMG"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -114,6 +117,7 @@
 
 <script type="text/javascript" src="javascript/ejs_production.js"></script>
 <script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+<!--<script type="text/javascript" src="javascript/profile.js"></script>-->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <!-- Bootstrap JS (MUST come AFTER jQuery line above) -->
@@ -126,7 +130,6 @@
                 $("#current-user").html(Parse.User.current().get("username") + " Profile");
             }
         }
-
         checkCurrentLogin();
     });
 </script>

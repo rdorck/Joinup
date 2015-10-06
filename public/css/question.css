@@ -1,3 +1,4 @@
+
 /*
  * Base structure
  */
@@ -44,9 +45,10 @@ body {
         padding: 20px;
         overflow-x: hidden;
         overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        background-color: #f5f5f5;
+        background-color: #ffd700; /*#BEBE00;*/
         border-right: 1px solid #eee;
     }
+
 }
 
 /* Sidebar navigation */
@@ -56,6 +58,7 @@ body {
     margin-left: -20px;
 }
 .nav-sidebar > li > a {
+    color: #000000;
     padding-right: 20px;
     padding-left: 20px;
 }
@@ -63,7 +66,17 @@ body {
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
     color: #fff;
-    background-color: #428bca;
+    background-color: #5e5e5e;
+    color: #ffd700;
+}
+
+li.hide {
+    visibility: hidden;
+}
+@media (min-width: 460px){
+    li.hide {
+        visibility: visible;
+    }
 }
 
 
@@ -89,22 +102,35 @@ body {
     color: #ffd700;
 }
 
+.main h4 {
+    color: #ffd700;
+}
 
-/*
- * Placeholder dashboard ideas
- */
+.main .control-label {
+    color: #ffffff;
+}
 
-.placeholders {
-    margin-bottom: 30px;
-    text-align: center;
+body {
+    background-color: #5e5e5e;
 }
-.placeholders h4 {
-    margin-bottom: 0;
+
+table th {
+    color: #ffd700;
 }
-.placeholder {
-    margin-bottom: 20px;
+
+table th#deleteHead {
+    color: white;
+    background-color: red;
 }
-.placeholder img {
-    display: inline-block;
-    border-radius: 50%;
+
+table button:hover {
+    background-color: #ffd700;
 }
+
+table button.deleteButton:hover {
+    color: white;
+    background-color: red;
+}
+
+
+

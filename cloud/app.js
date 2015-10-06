@@ -63,8 +63,8 @@ app.post('/signup', function(req, res) {
     var sex = req.body.sex;
     var email = req.body.email;
     var phone = req.body.phone;
-
     var user = new Parse.User();
+
     user.set('username', username);
     user.set('password', password);
     user.set('firstName', firstName);
@@ -94,7 +94,7 @@ app.post('/login', function(req, res) {
         var sesh = current.getSessionToken();
         var seshToString = sesh.toString();
         var roleACL = new Parse.ACL();
-        roleACL.setWriteAccess(user, true);
+        roleACL.setWriteAccess(current, true);
         roleACL.setReadAccess(user, true);
         roleACL.setPublicWriteAccess(false);
         roleACL.setPublicReadAccess(false);
@@ -124,19 +124,8 @@ app.post('/login', function(req, res) {
 
 // GET, renders dashboard (the main focal point)
 app.get('/dashboard', function(req, res) {
-    res.render('dashboard');
+    res.render('dashboard', {userId: " ", username: " ", email: " "});
 });
-
-//app.get('/some', function(req, res) {
-//    var Category = Parse.Object.extend('Category');
-//    var query = new Parse.Query(Category);
-//    res.render('some', {categoryID: " ", categoryName: " "});
-//});
-//app.post('/some', function(req, res) {
-//    var catName = req.body.categoryName;
-//    var categoryId = 1;
-//    res.render('some', {categoryID: categoryId, categoryName: catName}); //updates EJS values in our View
-//});
 
 
 // Routes for adding categories
@@ -150,71 +139,18 @@ app.post('/addCategory', function(req, res) {
 
 // Routes for adding sub-categories
 app.get('/addSubCategory', function(req, res) {
-    var Category = Parse.Object.extend("Category");
-    var query = new Parse.Query(Category);
-    query.ascending("createdAt");
-
-    query.find({
-       success: function(categories){
-           res.render('addSubCategory', {subCategoryId: " ", subCategoryName: " "});
-       }, error: function(error){
-            alert(error.message);
-        }
-    });
+    res.render('addSubCategory', {subCategoryId: " ", subCategoryName: " "});
 });
 app.post('/addSubCategory', function(req, res) {
-    var categoryParent = req.body.categoryParent;
-    var subCategoryName = req.body.subCategoryName;
-    var subCategoryImg = req.body.subCategoryImg;
-
-    var SubCategory = Parse.Object.extend('SubCategory');
-    var subcategory = new SubCategory();
-
-    subcategory.set('categoryParent', categoryParent);
-    subcategory.set('subCategoryName', subCategoryName);
-    subcategory.set('subCategoryImg', subCategoryImg);
-
-    subcategory.save().then(function(subcategory) {
-        res.redirect('/addQuestion');
-    }, function(error) {
-        res.render('addSubCategory', { flash: error.message });
-    });
+    res.render('addSubCategory');
 });
 
 // Routes for adding questions
 app.get('/addQuestion', function(req, res) {
-    res.render('addQuestion');
+    res.render('addQuestion', {questionId: " ", questionName: " "});
 });
 app.post('/addQuestion', function(req, res) {
-    var parentCategory = req.body.categoryParent;
-    var parentSubCategory = req.body.subCategoryParent;
-    var questionText = req.body.questionText;
-    var optionA = req.body.optionA;
-    var optionB = req.body.optionB;
-    var optionC = req.body.optionC;
-    var optionD = req.body.optionD;
-    var answer = req.body.answer;
-
-    var Question = Parse.Object.extend("Question");
-    var question = new Question();
-
-    question.set('parentCategory', parentCategory);
-    question.set('parentSubCategory', parentSubCategory);
-    question.set('questionText', questionText);
-
-    // appends the options array
-    question.addUnique('options', optionA);
-    question.addUnique('options', optionB);
-    question.addUnique('options', optionC);
-    question.addUnique('options', optionD);
-
-    question.set('answer', answer);
-
-    question.save().then(function(question) {
-        res.redirect('/addQuestion');
-    }, function(error) {
-        res.render('addQuestion', { flash: error.message });
-    });
+    res.render('addQuestion');
 });
 
 

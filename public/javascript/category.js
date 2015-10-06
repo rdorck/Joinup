@@ -15,6 +15,8 @@ $(document).ready(function(){
         var i = 0;
         var query = new Parse.Query(Category);
         query.ascending("createdAt"); //displays results w/ most recently added on top
+        // only displays categories current user has created.
+        //query.equalTo("createdBy", Parse.User.current());
         var names = [];
         query.find({
             success: function(results){
@@ -42,6 +44,11 @@ $(document).ready(function(){
         });
     }
 
+    /*
+     * destroyed() will find the categoryName the user wants to delete
+     *      from the table, then destroy() it from Parse as well.
+     *  It is called after a delete to the table is made via button click
+     */
     function destroyed(name){
         //console.log("name is " + name);
         var query = new Parse.Query(Category);
@@ -89,8 +96,19 @@ $(document).ready(function(){
         var newCategory = new Category();
         var user = Parse.User.current();
         var category = $("#categoryNameInput").val();
+        var categoryACL = new Parse.ACL();
+        /* Categories should only be able to be added via
+         *  setRoleWriteAccess(TeamLeader, true) and then also Admin
+         */
+        categoryACL.setReadAccess(user, true);
+        categoryACL.setWriteAccess(user, true);
+        categoryACL.setPublicReadAccess(true);
+        categoryACL.setPublicWriteAccess(false);
+        //categoryACL.setRoleReadAccess(TeamLeader, true);
+        //categoryACL.setRoleWriteAccess(TeamLeader, true);
         newCategory.set("categoryName", category);
         newCategory.set("createdBy", user);
+        newCategory.setACL(categoryACL);
 
         // get input file & separate information needed
         var fileIn = $("#category-img-input")[0];
@@ -126,7 +144,7 @@ $(document).ready(function(){
                 });
             });
         }
-        else{ // there is NO file to be input, now save just the category
+        else{ // there is NO file to be input, save just the category
             newCategory.save().then(function(newCategory) {
                 /* category was successfully saved.  Now display
                  *  the same page with table populated w/ results
