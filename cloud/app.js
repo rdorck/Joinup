@@ -1,6 +1,8 @@
 Parse.initialize("mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU", "jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7");
 // These two lines are required to initialize Express in Cloud Code.
  express = require('express');
+ Mailgun = require('mailgun');
+ //Mailgun.initialize('sandbox11783fbada334d4a825cde853cce3717.mailgun.org', 'key-0aeded91185230fc8a83b13b4936fd3b');
  app = express();
 
 // Global app configuration section
@@ -8,6 +10,7 @@ app.set('views', 'cloud/views');  // Specify the folder to find templates
 app.set('view engine', 'ejs');    // Set the template engine
 app.use(express.bodyParser());    // Middleware for reading request body
 app.use(express.methodOverride()); // Middleware for receiving HTTP delete & put
+//app.use(Mailgun);
 
 // // reading the request query string of HTTP GET request.
 // app.get('/test', function(req, res) {
@@ -158,14 +161,17 @@ app.post('/addQuestion', function(req, res) {
 app.get('/settings', function(req, res) {
     res.render('settings');
 });
+app.post('/settings', function(req, res) {
+    res.render('settings');
+});
 
 
 // Load User Profile page, our Custom Hub
 app.get('/profile', function(req, res) {
-   res.render('profile');
+   res.render('profile', {userId: " ", username: " "});
 });
 app.post('/profile', function(req, res) {
-    res.redirect('/profile');
+    res.render('profile');
 });
 
 

@@ -118,6 +118,16 @@ table th {
     color: #ffd700;
 }
 
+table th#addFriend-head {
+    color: white;
+    background-color: lightskyblue;
+}
+
+table button.addFriend-button:hover {
+    color: white;
+    background-color: blue;
+}
+
 table th#reward-head {
     color: white;
     background-color: limegreen;

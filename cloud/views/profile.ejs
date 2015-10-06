@@ -49,9 +49,9 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li><a href="/dashboard"><span class="glyphicon glyphicon-th-list"></span>    Overview</a></li>
-                <li><a href="/addCategory"><span class="glyphicon glyphicon-plus"></span>    Add Category</a></li>
-                <li><a href="/addSubCategory"><span class="glyphicon glyphicon-plus"></span>    Add Sub-Category</a></li>
-                <li><a href="/addQuestion"><span class="glyphicon glyphicon-plus"></span>    Add Question</a></li>
+                <li><a href="/addCategory"><span class="glyphicon glyphicon-plus"></span>    Categories</a></li>
+                <li><a href="/addSubCategory"><span class="glyphicon glyphicon-plus"></span>    Sub-Categories</a></li>
+                <li><a href="/addQuestion"><span class="glyphicon glyphicon-plus"></span>    Questions</a></li>
             </ul>
             <ul class="nav nav-sidebar">
                 <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span>    Settings</a></li>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header" id="current-user" style="text-align: center; color:#ffd700; font-size: 60px"></h1>
+            <h1 class="page-header" id="current-user" style="text-align: center; color:lightblue; font-size: 60px"></h1>
 
             <div class="row placeholders">
                 <div class="col-xs-6 col-sm-3 placeholder">
@@ -74,20 +74,20 @@
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
                     <img src="img/ConnectHub_Logo_Icon_Green.jpg" height=75px width=65px class="img-responsive">
-                    <h4>Some Topic Heading</h4>
-                    <span class="text-muted">Some content </span>
+                    <h4>Newly Added Game</h4>
+                    <span class="text-muted">GameId</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
                     <img src="img/ConnectHub_Logo_Icon_Red.jpg" height=75px width=65px class="img-responsive">
-                    <h4>Some More Topics</h4>
-                    <span class="text-muted">More content</span>
+                    <h4>Best Game Completed</h4>
+                    <span class="text-muted">GameId</span>
                 </div>
             </div>
 
-            <h2 class="sub-header">Progress Feed<span style="color: #ffd700"> V </span></h2>
+            <h2 class="sub-header">Progress Feed</h2>
 
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -102,8 +102,34 @@
                     <tbody id="tableBody">
                         <tr>
                             <td></td>
-                            <td id="badgeIMG"></td>
                             <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="sub-header">Friends</h2>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>username</th>
+                            <th>Their Points</th>
+                            <th id="Message">Send Message</th>
+                            <th id="Challenge">Send Challenge</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tableFriend">
+                        <tr>
+                            <td><%= userId %></td>
+                            <td><%= username %></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -117,21 +143,10 @@
 
 <script type="text/javascript" src="javascript/ejs_production.js"></script>
 <script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
-<!--<script type="text/javascript" src="javascript/profile.js"></script>-->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="javascript/profile.js"></script>
 <!-- Bootstrap JS (MUST come AFTER jQuery line above) -->
 <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function(){
-        Parse.initialize("mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU", "jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7");
-        function checkCurrentLogin(){
-            if(Parse.User.current()){
-                $("#current-user").html(Parse.User.current().get("username") + " Profile");
-            }
-        }
-        checkCurrentLogin();
-    });
-</script>
 </body>
 </html>

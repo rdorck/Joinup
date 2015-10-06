@@ -113,6 +113,32 @@ body {
     background-color: #5e5e5e;
 }
 
+table th {
+    color: white;
+}
 
+table th#Message {
+    color: white;
+    background-color: lightblue;
+}
+
+table th#Challenge {
+    color: white;
+    background-color: orangered;
+}
+
+table button:hover {
+    background-color: #ffd700;
+}
+
+table button.messageButton:hover {
+    color: white;
+    background-color: lightblue;
+}
+
+table button.challengeButton:hover {
+    color: white;
+    background-color: red;
+}
 
 

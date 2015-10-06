@@ -34,13 +34,15 @@ $(document).ready(function(){
         var querySubs = new Parse.Query("SubCategory");
         querySubs.descending("createdAt");
         var subParents = [];
+        var select = document.getElementById("subCategory-selector");
         querySubs.find({
             success: function(results){
                 for(var i=0; i < results.length; i++){
                     subParents[i] = results[i].get("subCategoryName");
-                    var select = document.getElementById("subCategory-selector");
+
                     select.options[select.options.length] = new Option(subParents[i], subParents[i]);
                 }
+                select.options[select.options.length] = new Option(" ", " ");
                 return subParents;
             }, error: function(error){
                 console.log(error.message);
@@ -89,7 +91,7 @@ $(document).ready(function(){
                     var cell2 = row.insertCell(1);
                     var cell3 = row.insertCell(2); // Edit button spot
                     var cell4 = row.insertCell(3); // Delete button spot
-                    cell1.innerHTML = i;
+                    cell1.innerHTML = results[i].id;
                     cell2.innerHTML = questions[i];
                     cell3.innerHTML = "<button>Edit</button>";
                     cell4.innerHTML = "<button class='deleteButton'>Delete</button>";
@@ -127,19 +129,19 @@ $(document).ready(function(){
         queryCategory.equalTo("categoryName", questionParent);
         queryCategory.find({
             success: function(results){
-                console.log("queryCategory found: " + results[0].id + " the parent's objectId");
+                console.log("queryCategory matched to objectId: " + results[0].id);
                 queryCategory.get(results[0].id, {
                     success: function(object){
                         newQuestion.set("createdBy", user);
                         newQuestion.set("questionText", question);
                         newQuestion.set("answer", answer);
                         newQuestion.set("parentCategory", object);
-                        if(questionParentSub){
+                        if(selectedParentSubCategory()){
                             var querySubCategory = new Parse.Query(SubCategory);
                             querySubCategory.equalTo("subCategoryName", questionParentSub);
                             querySubCategory.find({
                                 success: function(subResults){
-                                    console.log("querySubCategory found: " + subResults[0].id + " the subCategory parent's objectId");
+                                    console.log("querySubCategory matched to objectID: " + subResults[0].id);
                                     querySubCategory.get(subResults[0].id, {
                                         success: function(subObj){
                                             newQuestion.set("parentSubCategory", subObj);
@@ -263,17 +265,22 @@ $(document).ready(function(){
 
     $("table").on('click', '.deleteButton', function(e){
         e.preventDefault();
-        // deletes the specified row from table
-        var table = document.getElementById("tableBody");
-        var row = this.parentNode.parentNode;
-        var gone = row.parentNode.removeChild(row);
+        var certain = window.prompt("Are you sure you want to delete this question?", "type 'yes' to confirm");
+        if(certain === "yes") {
+            // deletes the specified row from table
+            var table = document.getElementById("tableBody");
+            var row = this.parentNode.parentNode;
+            var gone = row.parentNode.removeChild(row);
 
-        // still need to destroy it from Parse
-        var destroyer = gone.cells[1].innerText  // category name we seek to destroy
-        //console.log(destroyer); // checking name we want to delete is correct
+            // still need to destroy it from Parse
+            var destroyer = gone.cells[1].innerText  // category name we seek to destroy
+            //console.log(destroyer); // checking name we want to delete is correct
 
-        destroyed(destroyer); //function call to destroy desired object
-
+            destroyed(destroyer); //function call to destroy desired object
+        }
+        else{
+            alert("Did not delete question.");
+        }
     });
 
 

@@ -5,6 +5,7 @@
 $(document).ready(function(){
     Parse.initialize("mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU", "jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7");
     var Category = Parse.Object.extend('Category');
+    var SubCategory = Parse.Object.extend('SubCategory');
     queryCategories();
 
     /* A function for the page's initial loading & after
@@ -32,7 +33,7 @@ $(document).ready(function(){
                     var cell2 = row.insertCell(1);
                     var cell3 = row.insertCell(2); // Edit button spot
                     var cell4 = row.insertCell(3); // Delete button spot
-                    cell1.innerHTML = i;
+                    cell1.innerHTML = results[i].id;
                     cell2.innerHTML = names[i];
                     cell3.innerHTML = "<button>Edit</button>";
                     cell4.innerHTML = "<button class='deleteButton'>Delete</button>";
@@ -78,17 +79,22 @@ $(document).ready(function(){
 
     $("table").on('click', '.deleteButton', function(e){
         e.preventDefault();
-        // deletes the specified row from table
-        var table = document.getElementById("tableBody");
-        var row = this.parentNode.parentNode;
-        var gone = row.parentNode.removeChild(row);
+        var certain = window.prompt("Are you sure you want to delete this category? ", "type 'yes' to confirm ");
+        if(certain === "yes"){
+            // deletes the specified row from table
+            var table = document.getElementById("tableBody");
+            var row = this.parentNode.parentNode;
+            var gone = row.parentNode.removeChild(row);
 
-        // still need to destroy it from Parse
-        var destroyer = gone.cells[1].innerText  // category name we seek to destroy
-        //console.log(destroyer); // checking name we want to delete is correct
+            // still need to destroy it from Parse
+            var destroyer = gone.cells[1].innerText  // category name we seek to destroy
+            //console.log(destroyer); // checking name we want to delete is correct
 
-        destroyed(destroyer); //function call to destroy desired object
-
+            destroyed(destroyer); //function call to destroy desired object
+        }
+        else{
+            alert("Did not delete category");
+        }
     });
 
     $("#category-form").submit(function(event) {
