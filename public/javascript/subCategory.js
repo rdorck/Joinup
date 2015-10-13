@@ -6,6 +6,7 @@ $(document).ready(function(){
     Parse.initialize("mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU", "jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7");
     var SubCategory = Parse.Object.extend('SubCategory');
     var Category = Parse.Object.extend('Category');
+    var Question = Parse.Object.extend('Question');
 
     queryParentSelector();
     querySubCategories();
@@ -188,6 +189,8 @@ $(document).ready(function(){
     function destroyed(name){
         //console.log("name is " + name);
         var query = new Parse.Query(SubCategory);
+        var queryQuestion = new Parse.Query(Question);
+        var qArray = [];
         query.equalTo("subCategoryName", name);
         query.find({
             success: function(results){
@@ -195,6 +198,31 @@ $(document).ready(function(){
                 query.get(results[0].id, {
                     success: function(object){
                         console.log(object.id);
+                        queryQuestion.equalTo("parentSubCategory", object);
+                        queryQuestion.find({
+                            success: function(relatedQuestions){
+                                for(var i=0; i < relatedQuestions.length; i++){
+                                    qArray[i] = relatedQuestions[i];
+                                    console.log("questions related to this sub-category are: " + qArray[i].id);
+                                    queryQuestion.get(relatedQuestions[i].id, {
+                                        success: function(qObject){
+                                            console.log("qObject: " + qObject.id);
+                                            qObject.destroy({
+                                                success: function(){
+                                                    alert("Related questions to this sub-category were successfully deleted.");
+                                                }, error: function(error){
+                                                    console.log(error.message);
+                                                }
+                                            });
+                                        }, error: function(error){
+                                            console.log(error.message);
+                                        }
+                                    });
+                                }
+                            }, error: function(error){
+                                console.log(error.message);
+                            }
+                        });
                         object.destroy({
                             success: function(){
                                 alert("SubCategory was deleted successfully");
