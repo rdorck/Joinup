@@ -47,6 +47,41 @@ $(document).ready(function(){
         }
     }
 
+    /*
+     *  Called from querySubCategories() to find a sub-category's parent category
+     */
+    function linkParent(childName, parentId){
+        var queryParent = new Parse.Query(Category);
+        var parentRelated = [];
+        queryParent.get(parentId);
+        queryParent.find({
+            success: function(pars){
+                for(var j=0; j < pars.length; j++){
+                    console.log("pars[j]: " + pars[j].id);
+                    parentRelated[j] = pars[j].get('categoryName');
+                    console.log("parentRelated[j]: " + parentRelated[j]);
+                    var table = document.getElementById('tableBody');
+                    $(".success").show();
+                    var row = table.insertRow(0);
+                    var cellId = row.insertCell(0);
+                    var cellName = row.insertCell(1);
+                    var cellParent = row.insertCell(2);
+                    var cellEditButton = row.insertCell(3);
+                    var cellDeleteButton = row.insertCell(4);
+
+                    cellId.innerHTML = parentId;
+                    cellName.innerHTML = childName;
+                    cellParent.innerHTML = parentRelated[j];
+                    cellEditButton.innerHTML = "<button class='table-button editButton'>Edit</button>";
+                    cellDeleteButton.innerHTML = "<button class='table-button deleteButton'>Delete</button>";
+                }
+                return parentRelated;
+            }, error: function(error){
+                console.log(error.message);
+            }
+        });
+    }
+
     /* A function for the page's initial loading & after
      *   saving an object to Category that will display all of the
      *   current categories in the database in the table.
@@ -56,24 +91,18 @@ $(document).ready(function(){
         var query = new Parse.Query(SubCategory);
         query.ascending("createdAt"); //displays results w/ most recently added on top
         var names = [];
+        var parents = [];
         query.find({
             success: function(results){
-                /* captured all categories, now separate them into respective rows
+                /* captured all sub-categories, now separate them into respective rows
                  *   in the table
                  */
                 for(var i=0; i < results.length; i++){
                     names[i] = results[i].get('subCategoryName');
-                    var table = document.getElementById("tableBody");
-                    $(".success").show();
-                    var row = table.insertRow(0);
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2); // Edit button spot
-                    var cell4 = row.insertCell(3); // Delete button spot
-                    cell1.innerHTML = results[i].id;
-                    cell2.innerHTML = names[i];
-                    cell3.innerHTML = "<button>Edit</button>";
-                    cell4.innerHTML = "<button class='deleteButton'>Delete</button>";
+                    parents[i] = results[i].get('parentCategory');
+                    //console.log("Sending parents[i]: " + parents[i].id + " to linkParent()");
+                    linkParent(names[i], parents[i].id);
+
                 }
                 return names;
             }, error: function(error){

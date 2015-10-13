@@ -53,7 +53,7 @@ $(document).ready(function(){
     function selectedParentCategory(){
         var select = document.getElementById("category-selector");
         if(select.options.length > 0){
-            var selectedParentText = select.options[select.selectedIndex].text;
+            //var selectedParentText = select.options[select.selectedIndex].text;
             var selectedParentValue = select.options[select.selectedIndex].value;
             // do these need to combined in some way to make a full object? ^^^^
             return selectedParentValue;
@@ -66,7 +66,7 @@ $(document).ready(function(){
     function selectedParentSubCategory(){
         var select = document.getElementById("subCategory-selector");
         if(select.options.length > 0){
-            var selectedParentSubText = select.options[select.selectedIndex].text;
+            //var selectedParentSubText = select.options[select.selectedIndex].text;
             var selectedParentSubValue = select.options[select.selectedIndex].value;
             // do these need to combined in some way to make a full object? ^^^^
             return selectedParentSubValue;
@@ -79,22 +79,29 @@ $(document).ready(function(){
     function queryQuestion(){
         var query = new Parse.Query(Question);
         query.ascending("createdAt");
+        //var a = [];
         var questions = [];
         query.find({
             success: function(results){
                 for(var i=0; i < results.length; i++){
+                     var a = results[i];
+                    console.log("a: " + a);
                     questions[i] = results[i].get("questionText");
                     var table = document.getElementById("tableBody");
                     $(".success").show();
                     var row = table.insertRow(0);
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2); // Edit button spot
-                    var cell4 = row.insertCell(3); // Delete button spot
-                    cell1.innerHTML = results[i].id;
-                    cell2.innerHTML = questions[i];
-                    cell3.innerHTML = "<button>Edit</button>";
-                    cell4.innerHTML = "<button class='deleteButton'>Delete</button>";
+                    var qId = row.insertCell(0);
+                    var qText = row.insertCell(1);
+                    var qSubCategory = row.insertCell(2);
+                    var qCategory = row.insertCell(3);
+                    var qEdit = row.insertCell(4);
+                    var qDelete = row.insertCell(5);
+                    qId.innerHTML = results[i].id;
+                    qText.innerHTML = questions[i];
+                    qSubCategory.innerHTML = "";
+                    qCategory.innerHTML = a.get('parentCategory');
+                    qEdit.innerHTML = "<button class='tableButton editButton'>Edit</button>";
+                    qDelete.innerHTML = "<button class='tableButton deleteButton'>Delete</button>";
                 }
                 return questions;
             }, error: function(error){
@@ -265,7 +272,7 @@ $(document).ready(function(){
 
     $("table").on('click', '.deleteButton', function(e){
         e.preventDefault();
-        var certain = window.prompt("Are you sure you want to delete this question?", "type 'yes' to confirm");
+        var certain = window.prompt("Are you sure you want to delete this question?  ", "type 'yes' to confirm");
         if(certain === "yes") {
             // deletes the specified row from table
             var table = document.getElementById("tableBody");

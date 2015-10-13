@@ -44,7 +44,11 @@ body {
         padding: 20px;
         overflow-x: hidden;
         overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        background-color: #ffd700; /*#BEBE00;*/
+        /*background-color: lightblue; /!*#BEBE00;*!/*/
+        background: -webkit-linear-gradient(left top, lightblue , lightgoldenrodyellow); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(bottom right, lightblue, lightgoldenrodyellow); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(bottom right, lightblue, lightgoldenrodyellow); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(to bottom right, lightblue , lightgoldenrodyellow); /* Standard syntax */;
         border-right: 1px solid #eee;
     }
 
@@ -66,7 +70,7 @@ body {
 .nav-sidebar > .active > a:focus {
     color: #fff;
     background-color: #5e5e5e;
-    color: #ffd700;
+    color: lightblue;
 }
 
 /*li.hide {*/
@@ -117,9 +121,17 @@ table th {
     color: white;
 }
 
+table .tableButton {
+    display: block;
+    margin: auto;
+    border-radius: 10px;
+    background-color: white;
+}
+
 table th#Message {
     color: white;
     background-color: lightblue;
+
 }
 
 table th#Challenge {

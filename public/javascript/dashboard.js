@@ -27,8 +27,8 @@ $(document).ready(function(){
                     cell2.innerHTML = userArray[i];
                     cell3.innerHTML = userEmails[i];
                     cell4.innerHTML = 100;
-                    cell5.innerHTML = "<button class='addFriend-button'>+ Friend</button>";
-                    cell6.innerHTML = "<button class='reward-button'>Reward</button>";
+                    cell5.innerHTML = "<button class='tableButton addFriend-button'>+ Friend</button>";
+                    cell6.innerHTML = "<button class='tableButton reward-button'>Reward</button>";
                 }
                 return userArray;
             }, error: function(error){
@@ -39,6 +39,12 @@ $(document).ready(function(){
 
     function rewardEmail(dest){
         console.log("Reward email is set to go to " + dest);
+        Parse.Config.get().then(function(config){
+            var badge = config.get("HR_BadgeLevel1");
+            var img = config.get("levelOneImg");
+            console.log("Badge: " + badge.achievement + " " + badge.imgURL);
+            var congrats = window.confirm(img + " " + "Congratulations on rewarding " + badge.title + " for " + badge.achievement);
+        });
         //Mailgun.sendEmail({
         //    to: "rdrock@udel.edu",
         //    from: "Mailgun@CloudCode.com",

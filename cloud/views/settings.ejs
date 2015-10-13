@@ -31,7 +31,7 @@
                 <!--<span class="icon-bar"></span>-->
                 <!--<span class="icon-bar"></span>-->
             </button>
-            <a class="navbar-brand" href="/dashboard" style="color: #ffd700">Dashboard</a>
+            <a class="navbar-brand" href="/dashboard">Dashboard</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -82,8 +82,8 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-sm-8">
-                        <button type="submit" class="btn btn-default btn-primary">Add ACL</button>
-                        <button type="submit" class="btn btn-default btn-primary" style="background-color: red">Delete ACL</button>
+                        <button type="submit" id="addButton" class="btn btn-default btn-primary">Add ACL</button>
+                        <button type="submit" id="deleteButton" class="btn btn-default btn-primary">Delete ACL</button>
                     </div>
                 </div>
             </form>
@@ -103,7 +103,7 @@
 
                             </tr>
                         </thead>
-                        <tbody id="tableBody">
+                        <tbody id="tableBody" style="display: none" class="success">
                             <tr>
                                 <td></td>
                                 <td></td>

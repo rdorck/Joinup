@@ -45,7 +45,10 @@ body {
         padding: 20px;
         overflow-x: hidden;
         overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        background-color: #ffd700; /*#BEBE00;*/
+        background: -webkit-linear-gradient(left top, lightblue , #ffd700); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(bottom right, lightblue, #ffd700); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(bottom right, lightblue, #ffd700); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(to bottom right, lightblue , #ffd700); /* Standard syntax */;
         border-right: 1px solid #eee;
     }
 
@@ -114,6 +117,10 @@ body {
     background-color: #5e5e5e;
 }
 
+table {
+    border-collapse: separate;
+}
+
 table th {
     color: #ffd700;
 }
@@ -121,6 +128,12 @@ table th {
 table th#deleteHead {
     color: white;
     background-color: red;
+}
+
+table .tableButton {
+    background-color: white;
+    text-align: center;
+    border-radius: 10px;
 }
 
 table button:hover {

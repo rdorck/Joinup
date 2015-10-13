@@ -6,6 +6,7 @@ $(document).ready(function(){
     Parse.initialize("mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU", "jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7");
     var Category = Parse.Object.extend('Category');
     var SubCategory = Parse.Object.extend('SubCategory');
+    var Question = Parse.Object.extend('Question');
     queryCategories();
 
     /* A function for the page's initial loading & after
@@ -35,8 +36,8 @@ $(document).ready(function(){
                     var cell4 = row.insertCell(3); // Delete button spot
                     cell1.innerHTML = results[i].id;
                     cell2.innerHTML = names[i];
-                    cell3.innerHTML = "<button>Edit</button>";
-                    cell4.innerHTML = "<button class='deleteButton'>Delete</button>";
+                    cell3.innerHTML = "<button class='editButton table-button'>Edit</button>";
+                    cell4.innerHTML = "<button class='deleteButton table-button'>Delete</button>";
                 }
                 return names;
             }, error: function(error){
@@ -51,8 +52,11 @@ $(document).ready(function(){
      *  It is called after a delete to the table is made via button click
      */
     function destroyed(name){
-        //console.log("name is " + name);
         var query = new Parse.Query(Category);
+        var querySub = new Parse.Query(SubCategory);
+        var subParentsArray = [];
+        var queryQ = new Parse.Query(Question);
+        var qParentsArray = [];
         query.equalTo("categoryName", name);
         query.find({
             success: function(results){
@@ -60,9 +64,59 @@ $(document).ready(function(){
                 query.get(results[0].id, {
                     success: function(object){
                         console.log(object.id);
+                        querySub.equalTo("parentCategory", object);
+                        querySub.find({
+                            success: function(subParents){
+                                for(var i=0; i < subParents.length; i++){
+                                    subParentsArray[i] = subParents[i];
+                                    console.log("subParents are: " + subParents[i].id);
+                                    querySub.get(subParents[0].id, {
+                                       success: function(subObject){
+                                           console.log("subObject.id: " + subObject.id);
+                                           queryQ.equalTo("parentCategory", object);
+                                           queryQ.find({
+                                               success: function(qParents){
+                                                   for(var j=0; j < qParents.length; j++){
+                                                       qParentsArray[j] = qParents[j];
+                                                       console.log("questions with this parent are: " + qParents[j].id);
+                                                       queryQ.get(qParents[0].id, {
+                                                           success: function(questionObject){
+                                                               console.log("questionObject.id: " + questionObject.id);
+                                                               questionObject.destroy({
+                                                                   success: function(){
+                                                                       alert("question objects were deleted successfully.")
+                                                                   }, error: function(error){
+                                                                       console.log(error.message);
+                                                                   }
+                                                               });
+                                                           }, error: function(error){
+                                                               console.log(error.message);
+                                                           }
+                                                       });
+                                                   }
+                                               }, error: function(error){
+                                                   console.log(error.message);
+                                               }
+                                           });
+                                           subObject.destroy({
+                                              success: function(){
+                                                  alert("subCategory was deleted successfully.");
+                                              }, error: function(error){
+                                                   console.log(error.message);
+                                               }
+                                           });
+                                       }, error: function(error){
+                                            console.log(error.message);
+                                        }
+                                    });
+                                }
+                            }, error: function(error){
+                                console.log(error.message);
+                            }
+                        });
                         object.destroy({
                             success: function(){
-                                alert("Category was deleted successfully");
+                                alert("Category was deleted successfully.");
                             }, error: function(error) {
                                 res.send(error.message);
                             }
@@ -79,7 +133,7 @@ $(document).ready(function(){
 
     $("table").on('click', '.deleteButton', function(e){
         e.preventDefault();
-        var certain = window.prompt("Are you sure you want to delete this category? ", "type 'yes' to confirm ");
+        var certain = window.prompt("You're 100% positive you want to delete this category? All sub-categories and questions related to this category will also be DELETED.", "type 'yes' to confirm ");
         if(certain === "yes"){
             // deletes the specified row from table
             var table = document.getElementById("tableBody");

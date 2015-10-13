@@ -60,11 +60,11 @@
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h2 class="page-header">Quiz Admin Panel</h2>
+            <h1 class="page-header">Sub-Categories</h1>
 
             <!-- START OF ADD SUB CATEGORY -->
-            <hr>
-            <h4 class="sub-header">Add Sub Category</h4>
+            <br/>
+            <h4 class="sub-header">Add Sub-Category</h4>
             <form class="form-horizontal" id="subCategory-form">
 
                 <div class="form-group">
@@ -108,18 +108,19 @@
                         <tr>
                             <th>Id</th>
                             <th>Sub-Category Name</th>
-                            <!--<th>Parent<br/>Category</th>-->
+                            <th>Parent<br/>Category</th>
                             <th>Edit <br/>Sub-Category</th>
                             <th id="deleteHead">Delete <br/>Sub-Category</th>
                         </tr>
                         </thead>
 
-                        <tbody id="tableBody">
+                        <tbody id="tableBody" style="display: none" class="success">
                             <tr id="tableBody-row">
-                                <td><%= subCategoryId %></td>
-                                <td><%= subCategoryName %></td>
-                                <td></td>
-                                <td></td>
+                                <td id="subCategoryId-cell"><%= subCategoryId %></td>
+                                <td id="subCategoryName-cell"><%= subCategoryName %></td>
+                                <td id="subCategoryParentName-cell"></td>
+                                <td id="subCategoryEditButton-cell"></td>
+                                <td id="subCategoryDeleteButton-cell"></td>
                             </tr>
 
                         </tbody>

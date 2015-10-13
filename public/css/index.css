@@ -1,7 +1,7 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: #5e5e5e;
+    background-color: black;
 }
 
 body div.logo-div {
@@ -13,7 +13,7 @@ body div.logo-div {
 body h1 {
     font-size: 50px;
     text-align:center;
-    color: #000000;
+    color: black;
     position: relative;
 }
 
