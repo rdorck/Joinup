@@ -242,7 +242,7 @@ $(document).ready(function(){
 
     $("table").on('click', '.deleteButton', function(e){
         e.preventDefault();
-        var certain = window.prompt("Are you sure you want to delete this sub-category?", "type 'yes' to confirm");
+        var certain = window.prompt("You're 100% you want to delete this sub-category? Any questions related to this sub-category will also be destroyed.", "type 'yes' to confirm");
         if(certain === "yes") {
             // deletes the specified row from table
             var table = document.getElementById("tableBody");
@@ -259,6 +259,5 @@ $(document).ready(function(){
             alert("Did not delete sub-category");
         }
     });
-
 
 });

@@ -6,6 +6,7 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
     padding-top: 50px;
+    background-color: black;
 }
 
 
@@ -105,24 +106,34 @@ li.hide {
     color: #ffd700;
 }
 
-.main h4 {
+.main h4, h2 {
     color: #ffd700;
+}
+
+section {
+    text-align: center;
+}
+
+.main form button {
+    background-color: #ffd700;
+    color: black;
+}
+.main form button:hover {
+    background-color: green;
+    color: white;
 }
 
 .main .control-label {
     color: #ffffff;
 }
 
-body {
-    background-color: #5e5e5e;
-}
-
 table {
     border-collapse: separate;
+    background-color: #f5e79e;
 }
 
 table th {
-    color: #ffd700;
+    color: black;
 }
 
 table th#deleteHead {

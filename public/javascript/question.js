@@ -169,7 +169,7 @@ $(document).ready(function(){
                                                     newQuestion.set("questionFile", inFile);
                                                     newQuestion.save({
                                                         success: function(){
-                                                            console.log("File successfully saved");
+                                                            alert("File successfully saved");
                                                             queryQuestion();
                                                         }, error: function(error){
                                                             console.log(error.message);
@@ -179,7 +179,7 @@ $(document).ready(function(){
                                             }
                                             else {
                                                 newQuestion.save().then(function(newQuestion) {
-                                                    console.log("Question successfully saved by: " + user.get("username"));
+                                                    alert("Question successfully saved by: " + user.get("username"));
                                                 }, function(error){
                                                     console.log(error.message);
                                                 });
@@ -187,41 +187,41 @@ $(document).ready(function(){
                                         }, error: function(error){
                                             console.log(error.message);
                                         }
-                                    })
+                                    });
                                 }, error: function(error){
                                     console.log(error.message);
                                 }
                             });
                         }
 
-                        var fileIn = $("#question-img-input")[0];
-                        var filePath = $("#question-img-input").val();
-                        var fileName = filePath.split("\\").pop();
-
-                        if(fileIn.files.length > 0){
-                            var file = fileIn.files[0];
-                            var parseFile = new Parse.File(fileName, file);
-                            parseFile.save({
-                                success: function(){
-
-                                }, error: function(error){
-                                    console.log(error.message);
-                                }
-                            }).then(function(inFile){
-                                newQuestion.set("questionFile", inFile);
-                                newQuestion.save({
-                                    success: function(){
-                                        console.log("File successfully saved");
-                                        queryQuestion();
-                                    }, error: function(error){
-                                        console.log(error.message);
-                                    }
-                                });
-                            });
-                        }
+                        //var fileIn = $("#question-img-input")[0];
+                        //var filePath = $("#question-img-input").val();
+                        //var fileName = filePath.split("\\").pop();
+                        //
+                        //if(fileIn.files.length > 0){
+                        //    var file = fileIn.files[0];
+                        //    var parseFile = new Parse.File(fileName, file);
+                        //    parseFile.save({
+                        //        success: function(){
+                        //
+                        //        }, error: function(error){
+                        //            console.log(error.message);
+                        //        }
+                        //    }).then(function(inFile){
+                        //        newQuestion.set("questionFile", inFile);
+                        //        newQuestion.save({
+                        //            success: function(){
+                        //                console.log("File successfully saved");
+                        //                queryQuestion();
+                        //            }, error: function(error){
+                        //                console.log(error.message);
+                        //            }
+                        //        });
+                        //    });
+                        //}
                         else {
                             newQuestion.save().then(function(newQuestion) {
-                                console.log("Question successfully saved by: " + user.get("username"));
+                                alert("Question successfully saved by: " + user.get("username"));
                             }, function(error){
                                 console.log(error.message);
                             });
