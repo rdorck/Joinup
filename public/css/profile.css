@@ -5,6 +5,7 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
     padding-top: 50px;
+    background-color: #f7f7f7;
 }
 
 
@@ -17,6 +18,9 @@ body {
     border-bottom: 1px solid #eee;
 }
 
+
+
+
 /*
  * Top navigation
  * Hide default border to remove 1px line.
@@ -25,30 +29,42 @@ body {
     border: 0;
 }
 
+
+
+
 /*
  * Sidebar
  */
 
 /* Hide for mobile, show later */
-.sidebar {
-    display: none;
+.sidebar ul li {
+    border-bottom: 1px solid #e7e7e7;
 }
+
+.sidebar .sidebar-nav.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+
 @media (min-width: 768px) {
     .sidebar {
         position: fixed;
         top: 51px;
         bottom: 0;
         left: 0;
-        z-index: 1000;
+        z-index: 1;
         display: block;
         padding: 20px;
         overflow-x: hidden;
         overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        /*background-color: lightblue; /!*#BEBE00;*!/*/
-        background: -webkit-linear-gradient(left top, lightblue , lightgoldenrodyellow); /* For Safari 5.1 to 6.0 */
-        background: -o-linear-gradient(bottom right, lightblue, lightgoldenrodyellow); /* For Opera 11.1 to 12.0 */
-        background: -moz-linear-gradient(bottom right, lightblue, lightgoldenrodyellow); /* For Firefox 3.6 to 15 */
-        background: linear-gradient(to bottom right, lightblue , lightgoldenrodyellow); /* Standard syntax */;
+        width: 250px;
+
+        /*background: -webkit-linear-gradient(left top, lightblue , #ffd700); !* For Safari 5.1 to 6.0 *!*/
+        /*background: -o-linear-gradient(bottom right, lightblue, #ffd700); !* For Opera 11.1 to 12.0 *!*/
+        /*background: -moz-linear-gradient(bottom right, lightblue, #ffd700); !* For Firefox 3.6 to 15 *!*/
+        background: linear-gradient(to bottom, #f4801f , #f7f7f7); /* Standard syntax */;
+        background-color: #f4801f;
         border-right: 1px solid #eee;
     }
 
@@ -61,7 +77,7 @@ body {
     margin-left: -20px;
 }
 .nav-sidebar > li > a {
-    color: #000000;
+    color: white;
     padding-right: 20px;
     padding-left: 20px;
 }
@@ -70,17 +86,9 @@ body {
 .nav-sidebar > .active > a:focus {
     color: #fff;
     background-color: #5e5e5e;
-    color: lightblue;
 }
 
-/*li.hide {*/
-/*visibility: hidden;*/
-/*}*/
-/*@media (min-width: 460px){*/
-/*li.hide {*/
-/*visibility: visible;*/
-/*}*/
-/*}*/
+
 
 
 /*
@@ -89,6 +97,7 @@ body {
 
 .main {
     padding: 20px;
+
 }
 @media (min-width: 768px) {
     .main {
@@ -97,60 +106,152 @@ body {
     }
 }
 .main .page-header {
-    margin-top: 0;
+    margin-top: 25px;
 }
 
-.main h2{
+.main h1{
     text-align: center;
-    color: #ffd700;
+    color: #f4801f;
+    font-size: 50px;
 }
 
-.main h4 {
-    color: #ffd700;
+.main #categoryNameInput:focus {
+    /*background-color: #ffd700;*/
+    color: black;
 }
+
+.main h4, h2 {
+    color: black;
+}
+
+section{
+    text-align: center;
+}
+
+.main form button{
+    background-color: #f4801f;
+}
+
+.main form button:hover{
+    background-color: green;
+    color: white;
+}
+
 
 .main .control-label {
-    color: #ffffff;
+    color: black;
 }
 
-body {
-    background-color: #5e5e5e;
+/*
+ * Table Content
+ */
+
+.table-responsive {
+    display: block;
+    margin: auto;
+}
+
+table {
+    display: table;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    border-collapse: separate;
 }
 
 table th {
     color: white;
+    background-color: #f4801f;
+    text-align: center;
 }
 
-table .tableButton {
+
+table th#deleteHead {
+    color: white;
+    background-color: red;
+}
+
+table .table-button {
     display: block;
     margin: auto;
-    border-radius: 10px;
-    background-color: white;
-}
-
-table th#Message {
-    color: white;
-    background-color: lightblue;
-
-}
-
-table th#Challenge {
-    color: white;
-    background-color: orangered;
+    width: 65px;
+    height: 30px;
 }
 
 table button:hover {
-    background-color: #ffd700;
-}
-
-table button.messageButton:hover {
+    background-color: #f4801f;
     color: white;
-    background-color: lightblue;
 }
 
-table button.challengeButton:hover {
+table button.deleteButton:hover {
     color: white;
     background-color: red;
 }
 
 
+
+.show-grid {
+    margin: 15px 0;
+}
+
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+.panel-green .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-green a {
+    color: #5cb85c;
+}
+
+.panel-green a:hover {
+    color: #3d8b3d;
+}
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+.panel-red .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.panel-red a {
+    color: #d9534f;
+}
+
+.panel-red a:hover {
+    color: #b52b27;
+}
+
+.panel-yellow {
+    border-color: #f0ad4e;
+}
+
+.panel-yellow .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-yellow a {
+    color: #f0ad4e;
+}
+
+.panel-yellow a:hover {
+    color: #df8a13;
+}
+
+i{
+    font-size: 4em;
+}

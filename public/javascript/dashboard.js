@@ -3,17 +3,29 @@ $(document).ready(function(){
     //Mailgun.initialize('sandbox11783fbada334d4a825cde853cce3717.mailgun.org', 'key-0aeded91185230fc8a83b13b4936fd3b');
     var userQuery = new Parse.Query(Parse.User);
 
+    var allUsers = [];
+
     queryUsers();
+    topPerformer();
+    sosPerformer();
+
+    var userScores = [];
 
     function queryUsers() {
         userQuery.ascending("createdAt");
         var userArray = [];
         var userEmails = [];
+        var holder = 0;
         userQuery.find({
             success: function(users){
                 for(var i=0; i < users.length; i++){
+                    allUsers[i] = users[i];
+                    console.log(allUsers[i].id);
+                    //queryScore(allUsers[i]);
+
                     userArray[i] = users[i].get("username");
                     userEmails[i] = users[i].get("email");
+
                     var table = document.getElementById("tableBody");
                     $(".success").show();
                     var row = table.insertRow(0);
@@ -26,16 +38,67 @@ $(document).ready(function(){
                     cell1.innerHTML = users[i].id;
                     cell2.innerHTML = userArray[i];
                     cell3.innerHTML = userEmails[i];
-                    cell4.innerHTML = 100;
+                    cell4.innerHTML = " ";
                     cell5.innerHTML = "<button class='tableButton addFriend-button'>+ Friend</button>";
                     cell6.innerHTML = "<button class='tableButton reward-button'>Reward</button>";
                 }
-                return userArray;
+
             }, error: function(error){
                 console.log(error.message);
             }
         });
     }
+
+
+    function queryScore(userId){
+        var scoreObject = Parse.Object.extend("Score");
+        var queryScore = new Parse.Query(scoreObject);
+        queryScore.equalTo("user", userId);
+        queryScore.find({
+            success: function(player){
+                for(var i=0; i < player.length; i++) {
+                    console.log(player[i].get("score"));
+                }
+            }, error : function(error){
+                console.log(error.message);
+            }
+        });
+        //if(queryScore.notEqualTo("user", userId)){
+        //    console.log("no score for user");
+        //}
+    }
+
+    function topPerformer(){
+        var html = document.getElementById("topUsername");
+        var Score = Parse.Object.extend("Score");
+        var queryScore = new Parse.Query(Score);
+        queryScore.descending("score");
+        queryScore.find({
+            success: function(objects){
+                console.log(objects[0].attributes);
+                html.innerHTML = objects[0].get("name");
+                topPerformerUser = objects[0].get("user");
+            }, error: function(error){
+                console.log(error.message);
+            }
+        });
+    }
+
+    function sosPerformer(){
+        var html = document.getElementById("sosUsername");
+        var Score = Parse.Object.extend("Score");
+        var queryScore = new Parse.Query(Score);
+        queryScore.ascending("score");
+        queryScore.find({
+            success: function(objects){
+                console.log(objects[0].attributes);
+                html.innerHTML = objects[0].get("name");
+            }, error: function(error){
+                console.log(error.message);
+            }
+        });
+    }
+
 
     function rewardEmail(dest){
         console.log("Reward email is set to go to " + dest);
@@ -114,4 +177,5 @@ $(document).ready(function(){
         });
 
     });
+
 });

@@ -84,8 +84,11 @@ $(document).ready(function(){
         query.find({
             success: function(results){
                 for(var i=0; i < results.length; i++){
-                     var a = results[i];
-                    console.log("a: " + a);
+                    //var a = results[i];
+                    //console.log("a: " + a);
+                    console.log("results looking for Category: " + results[i].get('parentCategory').id);
+                    console.log("results looking for SubCategory: " + results[i].get('parentSubCategory').id);
+
                     questions[i] = results[i].get("questionText");
                     var table = document.getElementById("tableBody");
                     $(".success").show();
@@ -98,8 +101,8 @@ $(document).ready(function(){
                     var qDelete = row.insertCell(5);
                     qId.innerHTML = results[i].id;
                     qText.innerHTML = questions[i];
-                    qSubCategory.innerHTML = "";
-                    qCategory.innerHTML = a.get('parentCategory');
+                    qSubCategory.innerHTML = results[i].get('parentSubCategory').id;
+                    qCategory.innerHTML = results[i].get('parentCategory').id;
                     qEdit.innerHTML = "<button class='tableButton editButton'>Edit</button>";
                     qDelete.innerHTML = "<button class='tableButton deleteButton'>Delete</button>";
                 }
@@ -121,6 +124,7 @@ $(document).ready(function(){
         var optionC = $("#optionC").val();
         var optionD = $("#optionD").val();
         var answer = $("#answer").val();
+        var timer = $("#timer").val();
 
         newQuestion.addUnique("options", optionA);
         newQuestion.addUnique("options", optionB);
@@ -142,6 +146,7 @@ $(document).ready(function(){
                         newQuestion.set("createdBy", user);
                         newQuestion.set("questionText", question);
                         newQuestion.set("answer", answer);
+                        newQuestion.set("timer", timer);
                         newQuestion.set("parentCategory", object);
                         if(selectedParentSubCategory()){
                             var querySubCategory = new Parse.Query(SubCategory);

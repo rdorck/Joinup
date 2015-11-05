@@ -1,11 +1,11 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: black;
+    background-color: #f4801f;
 }
 
 body div.logo-div {
-    background-color: #ffd700;
+    background-color: #f4801f;
     height: 75px;
     position: relative;
 }
@@ -13,20 +13,21 @@ body div.logo-div {
 body h1 {
     font-size: 50px;
     text-align:center;
-    color: black;
+    color: white;
     position: relative;
 }
 
 body h3 {
     text-align: center;
-    color: #ffffff;
+    color: black;
 }
 
 a {
-    color: #ffd700;
+    color: dodgerblue;
 }
 
 .form-signin {
+    background-color: #f7f7f7;
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;

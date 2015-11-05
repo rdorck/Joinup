@@ -118,7 +118,7 @@ app.post('/login', function(req, res) {
         //    flash:error.message
         //});
 
-        res.redirect('/profile');
+        res.redirect('/dashboard');
     }, function(error) {
         res.redirect('/');
     });
@@ -133,7 +133,7 @@ app.get('/dashboard', function(req, res) {
 
 // Routes for adding categories
 app.get('/addCategory', function(req, res) {
-    res.render('addCategory', {categoryID: " ", categoryName: " "});
+    res.render('addCategory', {categoryID: " ", categoryName: " ", createdAt: " "});
 });
 app.post('/addCategory', function(req, res) {
     res.render('addCategory');
@@ -142,7 +142,7 @@ app.post('/addCategory', function(req, res) {
 
 // Routes for adding sub-categories
 app.get('/addSubCategory', function(req, res) {
-    res.render('addSubCategory', {subCategoryId: " ", subCategoryName: " "});
+    res.render('addSubCategory', {subCategoryId: " ", subCategoryName: " ", createdAt: " "});
 });
 app.post('/addSubCategory', function(req, res) {
     res.render('addSubCategory');

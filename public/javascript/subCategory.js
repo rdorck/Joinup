@@ -51,7 +51,8 @@ $(document).ready(function(){
     /*
      *  Called from querySubCategories() to find a sub-category's parent category
      */
-    function linkParent(childName, parentId){
+    function linkParent(objectId, createdDate, childName, parentId){
+        console.log("createdDate: " + createdDate);
         var queryParent = new Parse.Query(Category);
         var parentRelated = [];
         queryParent.get(parentId);
@@ -65,12 +66,14 @@ $(document).ready(function(){
                     $(".success").show();
                     var row = table.insertRow(0);
                     var cellId = row.insertCell(0);
-                    var cellName = row.insertCell(1);
-                    var cellParent = row.insertCell(2);
-                    var cellEditButton = row.insertCell(3);
-                    var cellDeleteButton = row.insertCell(4);
+                    var cellCreatedAt = row.insertCell(1);
+                    var cellName = row.insertCell(2);
+                    var cellParent = row.insertCell(3);
+                    var cellEditButton = row.insertCell(4);
+                    var cellDeleteButton = row.insertCell(5);
 
-                    cellId.innerHTML = parentId;
+                    cellId.innerHTML = objectId;
+                    cellCreatedAt.innerHTML = createdDate;
                     cellName.innerHTML = childName;
                     cellParent.innerHTML = parentRelated[j];
                     cellEditButton.innerHTML = "<button class='table-button editButton'>Edit</button>";
@@ -90,8 +93,10 @@ $(document).ready(function(){
     function querySubCategories(){
         var i = 0;
         var query = new Parse.Query(SubCategory);
-        query.ascending("createdAt"); //displays results w/ most recently added on top
+        query.ascending("parentCategory"); //displays results w/ most recently added on top
         var names = [];
+        var dates = [];
+        var datesRegex = [];
         var parents = [];
         query.find({
             success: function(results){
@@ -100,9 +105,12 @@ $(document).ready(function(){
                  */
                 for(var i=0; i < results.length; i++){
                     names[i] = results[i].get('subCategoryName');
+                    dates[i] = results[i].createdAt.toString();
+                    var createdAtRegex = dates[i].match(/\b(?:(?:Mon)|(?:Tues?)|(?:Wed(?:nes)?)|(?:Thur?s?)|(?:Fri)|(?:Sat(?:ur)?)|(?:Sun))(?:day)?\b[:\-,]?\s*[a-zA-Z]{3,9}\s+\d{1,2}\s*,?\s*\d{4}/);
+                    datesRegex[i] = createdAtRegex;
                     parents[i] = results[i].get('parentCategory');
                     //console.log("Sending parents[i]: " + parents[i].id + " to linkParent()");
-                    linkParent(names[i], parents[i].id);
+                    linkParent(results[i].id, datesRegex[i], names[i], parents[i].id);
 
                 }
                 return names;

@@ -20,6 +20,10 @@ $(document).ready(function(){
         // only displays categories current user has created.
         //query.equalTo("createdBy", Parse.User.current());
         var names = [];
+        var dates = [];
+        var creators = [];
+        var datesRegex = [];
+
         query.find({
             success: function(results){
                 /* captured all categories, now separate them into respective rows
@@ -27,24 +31,36 @@ $(document).ready(function(){
                  */
                 for(var i=0; i < results.length; i++){
                     names[i] = results[i].get('categoryName');
+                    //console.log("createdAt:  " + results[i].createdAt);
+                    dates[i] = results[i].createdAt.toString();
+                    var createdAtRegex = dates[i].match(/\b(?:(?:Mon)|(?:Tues?)|(?:Wed(?:nes)?)|(?:Thur?s?)|(?:Fri)|(?:Sat(?:ur)?)|(?:Sun))(?:day)?\b[:\-,]?\s*[a-zA-Z]{3,9}\s+\d{1,2}\s*,?\s*\d{4}/);
+                    //console.log("createdAtRegex: " + createdAtRegex);
+                    datesRegex[i] = createdAtRegex;
+                    //console.log("datesRegex: " + datesRegex[i]);
                     var table = document.getElementById("tableBody");
                     $(".success").show();
                     var row = table.insertRow(0);
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2); // Edit button spot
-                    var cell4 = row.insertCell(3); // Delete button spot
-                    cell1.innerHTML = results[i].id;
-                    cell2.innerHTML = names[i];
-                    cell3.innerHTML = "<button class='editButton table-button'>Edit</button>";
-                    cell4.innerHTML = "<button class='deleteButton table-button'>Delete</button>";
+                    var cellObjectId = row.insertCell(0);
+                    var cellCreatedAt = row.insertCell(1);
+                    var cellCreatedBy = row.insertCell(2)
+                    var cellCategoryName = row.insertCell(3);
+                    var cellEditButton = row.insertCell(4);
+                    var cellDeleteButton = row.insertCell(5);
+
+                    cellObjectId.innerHTML = results[i].id;
+                    cellCreatedAt.innerHTML = datesRegex[i];
+                    cellCreatedBy.innerHTML = "";
+                    cellCategoryName.innerHTML = names[i];
+                    cellEditButton.innerHTML = "<button class='editButton table-button'>Edit</button>";
+                    cellDeleteButton.innerHTML = "<button class='deleteButton table-button'>Delete</button>";
                 }
                 return names;
             }, error: function(error){
                 res.send(error.message);
             }
         });
-    }
+    } // END of queryCategories()
+
 
     /*
      * destroyed() will find the categoryName the user wants to delete
@@ -129,7 +145,8 @@ $(document).ready(function(){
                 res.send(error.message);
             }
         });
-    }
+    } // END of destroyed(name)
+
 
     $("table").on('click', '.deleteButton', function(e){
         e.preventDefault();
