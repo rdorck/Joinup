@@ -3,6 +3,11 @@ $(document).ready(function(){
     Parse.initialize("mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU", "jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7");
     var Category = Parse.Object.extend("Category");
     var Friend = Parse.Object.extend("Friend");
+
+    var profileButton = document.getElementById("profileName");
+    profileButton.innerHTML += " "
+    profileButton.innerHTML += Parse.User.current().get("username");
+
     //function getBadges(){
     //    var displayArray = [];
     //    $.getJSON("json/HR_badges.json", function(data){

@@ -7,16 +7,13 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!--<meta name="description" content="">-->
     <!--<meta name="author" content="">-->
-    <!--<link rel="icon" href="../../favicon.ico">-->
 
-    <title>Add Sub-Category</title>
+    <title>Add Badge</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
-    <link href="css/subCategory.css" rel="stylesheet">
-
+    <link href="css/badges.css" rel="stylesheet">
 </head>
 
 <body>
@@ -47,87 +44,81 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-sm-3 col-md-2 sidebar navbar-collapse collapse">
             <ul class="nav nav-sidebar">
                 <li><a href="/dashboard"><span class="glyphicon glyphicon-dashboard"></span>    Dashboard</a></li>
                 <li><a href="/users"><span class="glyphicon glyphicon-user"></span>    Users</a></li>
-                <li><a href="/badges"><span class="glyphicon glyphicon-certificate"></span>    Badges</a></li>
+                <li class="active"><a href="/badges"><span class="glyphicon glyphicon-certificate"></span>    Badges</a></li>
                 <li><a href="/addCategory"><span class="glyphicon glyphicon-plus"></span>    Categories</a></li>
-                <li class="active"><a href="/addSubCategory"><span class="glyphicon glyphicon-plus"></span>    Sub-Categories</a></li>
+                <li><a href="/addSubCategory"><span class="glyphicon glyphicon-plus"></span>    Sub-Categories</a></li>
                 <li><a href="/addQuestion"><span class="glyphicon glyphicon-plus"></span>    Questions</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
+                <br>
                 <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span>    Settings</a></li>
             </ul>
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Sub-Categories</h1>
 
-            <!-- START OF ADD SUB CATEGORY -->
+            <h1 class="page-header">Badges</h1>
             <br/>
-            <h4 class="sub-header">Add Sub-Category</h4>
-            <form class="form-horizontal" id="subCategory-form">
+            <h4 class="sub-header">Add a Badge</h4>
 
+            <form class="form-horizontal" id="badge-form">
                 <div class="form-group">
-                    <label for="CategorySelect" class="col-sm-2 control-label">Select Parent Category:</label>
+                    <label for="Tag" class="col-sm-2 control-label">Badge Name:</label>
                     <div class="col-sm-4">
-                        <select name="categoryParent" id="selector" required>
-                            <!-- populated in subCategory.js -->
-                        </select>
+                        <input type="text" class="form-control" id="badgeNameInput" name="badgeName" value="" placeholder="Enter Badge Name" required>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label for="Tag" class="col-sm-2 control-label">Add Sub Category Name:</label>
+                    <label for="Tag" class="col-sm-2 control-label">Badge Description:</label>
                     <div class="col-sm-4">
-                        <input type="text" id="subCategoryName-input" class="form-control" value="" name="subCategoryName" placeholder="enter sub-category name">
+                        <input type="text" class="form-control" id="badgeDescriptionInput" name="badgeDescription" value="" placeholder="Enter Badge Description" required>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label for="ImageUpload" class="col-sm-2 control-label">Sub Category Image:</label>
+                    <label for="ImageUpload" class="col-sm-2 control-label">Badge Image:</label>
                     <div class="col-sm-4">
-                        <input type="file" id="subCategory-img-input" name="subCategoryImg">
+                        <input type="file" id="badge-img-input" value="" name="badgeImg">
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-sm-8">
-                        <button type="submit" class="btn btn-default btn-primary">Add Sub Category</button>
+                        <button type="submit" class="btn btn-default btn-primary" id="addBadge-button">Add Badge</button>
                     </div>
                 </div>
             </form>
             <br>
 
             <section>
-                <h2 class="sub-header">Current Sub-Categories</h2>
+                <h2 class="sub-header">Current Badges</h2>
                 <h6 class="alert alert-success" style="color:green">Please Note: Id numbers are automatically generated.</h6>
                 <div class="main">
 
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered" id="categoryTable">
+                        <table class="table table-striped  table-bordered" id="badgeTable">
                             <thead>
                             <tr>
                                 <th>Id</th>
                                 <th>Date Created</th>
-                                <th>Sub-Category Name</th>
-                                <th>Parent<br/>Category</th>
-                                <th>Edit <br/>Sub-Category</th>
-                                <th id="deleteHead">Delete <br/>Sub-Category</th>
+                                <th>Author</th>
+                                <th>Badge Name</th>
+                                <th>Description</th>
+                                <th id="editHead">Edit Badge</th>
+                                <th id="deleteHead">Delete Badge</th>
                             </tr>
                             </thead>
 
                             <tbody id="tableBody" style="display: none" class="success">
-                                <tr id="tableBody-row">
-                                    <td id="subCategoryId-cell"><%= subCategoryId %></td>
-                                    <td id="subCategoryCreatedAt-cell"><%= createdAt %></td>
-                                    <td id="subCategoryName-cell"><%= subCategoryName %></td>
-                                    <td id="subCategoryParentName-cell"></td>
-                                    <td id="subCategoryEditButton-cell"></td>
-                                    <td id="subCategoryDeleteButton-cell"></td>
-                                </tr>
+                            <tr class="badgeTable-bodyRow">
+                                <td id="badge-id"><%= badgeId %></td>
+                                <td id="badge-createdAt"></td>
+                                <td id="badge-createdBy"><%= username %></td>
+                                <td id="badgeNameData"></td>
+                                <td></td>
+                                <td></td>
 
+                            </tr>
                             </tbody>
                         </table>
                     </div> <!-- .table-responsive -->
@@ -137,11 +128,12 @@
     </div> <!-- .row -->
 </div> <!-- .container-fluid -->
 
+
 <script type="text/javascript" src="javascript/ejs_production.js"></script>
 <script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script type="text/javascript" src="javascript/subCategory.js"></script>
+<script type="text/javascript" src="javascript/badges.js"></script>
 <!-- Bootstrap JS (MUST come AFTER jQuery line above) -->
 <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
 

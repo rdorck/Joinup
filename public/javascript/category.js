@@ -7,6 +7,11 @@ $(document).ready(function(){
     var Category = Parse.Object.extend('Category');
     var SubCategory = Parse.Object.extend('SubCategory');
     var Question = Parse.Object.extend('Question');
+
+    var profileButton = document.getElementById("profileName");
+    profileButton.innerHTML += " "
+    profileButton.innerHTML += Parse.User.current().get("username");
+
     queryCategories();
 
     /* A function for the page's initial loading & after
@@ -31,12 +36,15 @@ $(document).ready(function(){
                  */
                 for(var i=0; i < results.length; i++){
                     names[i] = results[i].get('categoryName');
-                    //console.log("createdAt:  " + results[i].createdAt);
+                    console.log("createdAt:  " + results[i].createdAt);
                     dates[i] = results[i].createdAt.toString();
                     var createdAtRegex = dates[i].match(/\b(?:(?:Mon)|(?:Tues?)|(?:Wed(?:nes)?)|(?:Thur?s?)|(?:Fri)|(?:Sat(?:ur)?)|(?:Sun))(?:day)?\b[:\-,]?\s*[a-zA-Z]{3,9}\s+\d{1,2}\s*,?\s*\d{4}/);
                     //console.log("createdAtRegex: " + createdAtRegex);
                     datesRegex[i] = createdAtRegex;
                     //console.log("datesRegex: " + datesRegex[i]);
+
+                    console.log("createdBy: " + results[i].get("createdBy").id);
+                    creators[i] = results[i].get("createdBy").id;
                     var table = document.getElementById("tableBody");
                     $(".success").show();
                     var row = table.insertRow(0);
@@ -49,7 +57,7 @@ $(document).ready(function(){
 
                     cellObjectId.innerHTML = results[i].id;
                     cellCreatedAt.innerHTML = datesRegex[i];
-                    cellCreatedBy.innerHTML = "";
+                    cellCreatedBy.innerHTML = creators[i];
                     cellCategoryName.innerHTML = names[i];
                     cellEditButton.innerHTML = "<button class='editButton table-button'>Edit</button>";
                     cellDeleteButton.innerHTML = "<button class='deleteButton table-button'>Delete</button>";

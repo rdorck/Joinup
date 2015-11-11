@@ -3,6 +3,11 @@ $(document).ready(function(){
     Parse.initialize("mg1qP8MFKOVjykmN3Aha6Q47L6XtuNQLIyVKFutU", "jbAhu3Txusmh2fpHCBjemv87emMIn99YtAu7fhq7");
 
     var User = Parse.User;
+
+    var profileButton = document.getElementById("profileName");
+    profileButton.innerHTML += " "
+    profileButton.innerHTML += Parse.User.current().get("username");
+
     queryUsers();
 
     function queryUsers(){

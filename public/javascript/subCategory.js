@@ -8,6 +8,10 @@ $(document).ready(function(){
     var Category = Parse.Object.extend('Category');
     var Question = Parse.Object.extend('Question');
 
+    var profileButton = document.getElementById("profileName");
+    profileButton.innerHTML += " "
+    profileButton.innerHTML += Parse.User.current().get("username");
+
     queryParentSelector();
     querySubCategories();
 

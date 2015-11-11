@@ -131,9 +131,21 @@ app.get('/dashboard', function(req, res) {
 });
 
 
+// Routes for all users, where admin can edit contents
+app.get('/users', function(req, res) {
+    res.render('users', {userId: " ", email: " "});
+});
+
+
+// Routes for badges, where admin can edit contents
+app.get('/badges', function(req, res) {
+    res.render('badges', {badgeId: " ", username: " "});
+});
+
+
 // Routes for adding categories
 app.get('/addCategory', function(req, res) {
-    res.render('addCategory', {categoryID: " ", categoryName: " ", createdAt: " "});
+    res.render('addCategory', {categoryID: " ", categoryName: " ", createdAt: " ", createdBy: " "});
 });
 app.post('/addCategory', function(req, res) {
     res.render('addCategory');

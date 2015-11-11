@@ -4,9 +4,54 @@ $(document).ready(function(){
     var SubCategory = Parse.Object.extend("SubCategory");
     var Question = Parse.Object.extend("Question");
 
+    var profileButton = document.getElementById("profileName");
+    profileButton.innerHTML += " "
+    profileButton.innerHTML += Parse.User.current().get("username");
+
     queryParentCategory();
     queryParentSubCategory();
     queryQuestion();
+
+
+    /*
+     *  For character counting on option inputs.  This allows us to guarantee the options text will
+     *      in fact fit on the screen and display correctly.
+     */
+    var text_max = 50;
+    $("#optionAText_feedback").html(text_max + " characters remaining");
+    $("#optionBText_feedback").html(text_max + " characters remaining");
+    $("#optionCText_feedback").html(text_max + " characters remaining");
+    $("#optionDText_feedback").html(text_max + " characters remaining");
+
+    $("#optionA").keyup(function () {
+        var text_length = $("#optionA").val().length;
+        var text_remaining = text_max - text_length;
+        $("#optionAText_feedback").html(text_remaining + " characters remaining");
+
+    });
+
+    $("#optionB").keyup(function () {
+        var text_length = $("#optionB").val().length;
+        var text_remaining = text_max - text_length;
+        $("#optionBText_feedback").html(text_remaining + " characters remaining");
+
+    });
+
+    $("#optionC").keyup(function () {
+        var text_length = $("#optionC").val().length;
+        var text_remaining = text_max - text_length;
+        $("#optionCText_feedback").html(text_remaining + " characters remaining");
+
+    });
+
+    $("#optionD").keyup(function () {
+        var text_length = $("#optionD").val().length;
+        var text_remaining = text_max - text_length;
+        $("#optionDText_feedback").html(text_remaining + " characters remaining");
+
+    });
+    // END of character counting
+
 
     function queryParentCategory(){
         var query = new Parse.Query(Category);
@@ -25,7 +70,8 @@ $(document).ready(function(){
                 res.send(error.message);
             }
         });
-    }
+    } // END of queryParentCategory()
+
 
     /* Really this function shouldn't be called until some Parent is selected because
      *  then we know what subCategories to query as appose to all of them.
@@ -48,7 +94,8 @@ $(document).ready(function(){
                 console.log(error.message);
             }
         });
-    }
+    } // END of queryParentSubCategory()
+
 
     function selectedParentCategory(){
         var select = document.getElementById("category-selector");
@@ -61,7 +108,8 @@ $(document).ready(function(){
         else {
             alert("Parent is not chosen");
         }
-    }
+    } // END of selectedParentCategory()
+
 
     function selectedParentSubCategory(){
         var select = document.getElementById("subCategory-selector");
@@ -74,22 +122,71 @@ $(document).ready(function(){
         else {
             alert("Parent SubCategory is not chosen");
         }
-    }
+    } // END of selectedParentSubCategory()
+
+
+    /*
+     *  Allows the user to select an answer via radio buttons as apposed to the previous version of entering
+     *    the whole option, or a select menu.  We will still save the answer as a String that is still the entire
+     *    option, but the user doesn't have to enter the whole thing anymore.
+     */
+    function selectedAnswer(){
+        var a = document.getElementById("radioA");
+        var b = document.getElementById("radioB");
+        var c = document.getElementById("radioC");
+        var d = document.getElementById("radioD");
+
+        if(a.checked){
+            var ans = $("#optionA").val();
+            b.checked = false;
+            c.checked = false;
+            d.checked = false;
+            console.log("ans A " + ans);
+        } else if(b.checked){
+            var ans = $("#optionB").val();
+            a.checked = false;
+            c.checked = false;
+            d.checked = false;
+            console.log("ans B " + ans);
+        } else if(c.checked){
+            var ans = $("#optionC").val();
+            a.checked = false;
+            b.checked = false;
+            d.checked = false;
+            console.log("ans C " + ans);
+        } else {
+            var ans = $("#optionD").val();
+            a.checked = false;
+            b.checked = false;
+            c.checked = false;
+            console.log("ans D " + ans);
+        }
+        return ans;
+    } // END of selectedAnswer()
+
 
     function queryQuestion(){
         var query = new Parse.Query(Question);
         query.ascending("createdAt");
         //var a = [];
         var questions = [];
+        var images = [];
         query.find({
             success: function(results){
                 for(var i=0; i < results.length; i++){
                     //var a = results[i];
                     //console.log("a: " + a);
-                    console.log("results looking for Category: " + results[i].get('parentCategory').id);
-                    console.log("results looking for SubCategory: " + results[i].get('parentSubCategory').id);
+                    //console.log("results looking for Category: " + results[i].get('parentCategory').id);
+                    //console.log("results looking for SubCategory: " + results[i].get('parentSubCategory').id);
 
                     questions[i] = results[i].get("questionText");
+                    images[i] = results[i].get("questionFile");
+
+                    /* Testing to ensure we can capture the file, perhaps use it to display to the table? */
+                    //if(images[i]){
+                    //    console.log("images: " + images[i].url());
+                    //}
+
                     var table = document.getElementById("tableBody");
                     $(".success").show();
                     var row = table.insertRow(0);
@@ -111,7 +208,7 @@ $(document).ready(function(){
                 console.log(error.message);
             }
         });
-    }
+    } // END of queryQuestion()
 
     $("#question-form").submit(function(event){
         event.preventDefault();
@@ -123,7 +220,6 @@ $(document).ready(function(){
         var optionB = $("#optionB").val();
         var optionC = $("#optionC").val();
         var optionD = $("#optionD").val();
-        var answer = $("#answer").val();
         var timer = $("#timer").val();
 
         newQuestion.addUnique("options", optionA);
@@ -132,15 +228,17 @@ $(document).ready(function(){
         newQuestion.addUnique("options", optionD);
 
         var questionParent = selectedParentCategory();
-        console.log("Question parent category selected is: " + questionParent);
+        //console.log("Question parent category selected is: " + questionParent);
         var questionParentSub = selectedParentSubCategory();
-        console.log("Question parent subCategory selected is: " + questionParentSub);
+        //console.log("Question parent subCategory selected is: " + questionParentSub);
+        var answer = selectedAnswer();
+        //console.log("Using radio buttons answer is: " + answer);
 
         var queryCategory = new Parse.Query(Category);
         queryCategory.equalTo("categoryName", questionParent);
         queryCategory.find({
             success: function(results){
-                console.log("queryCategory matched to objectId: " + results[0].id);
+                //console.log("queryCategory matched to objectId: " + results[0].id);
                 queryCategory.get(results[0].id, {
                     success: function(object){
                         newQuestion.set("createdBy", user);
@@ -153,7 +251,7 @@ $(document).ready(function(){
                             querySubCategory.equalTo("subCategoryName", questionParentSub);
                             querySubCategory.find({
                                 success: function(subResults){
-                                    console.log("querySubCategory matched to objectID: " + subResults[0].id);
+                                    //console.log("querySubCategory matched to objectID: " + subResults[0].id);
                                     querySubCategory.get(subResults[0].id, {
                                         success: function(subObj){
                                             newQuestion.set("parentSubCategory", subObj);
@@ -241,7 +339,8 @@ $(document).ready(function(){
                 console.log(error.message);
             }
         });
-    });
+    }); // END of submitting question
+
 
     /*
      * destroyed() will find the questionText the user wants to delete
@@ -254,7 +353,7 @@ $(document).ready(function(){
         query.equalTo("questionText", name);
         query.find({
             success: function(results){
-                console.log("Query successfully found " + results[0].id + " " + name);
+                //console.log("Query successfully found " + results[0].id + " " + name);
                 query.get(results[0].id, {
                     success: function(object){
                         console.log(object.id);
@@ -273,7 +372,8 @@ $(document).ready(function(){
                 res.send(error.message);
             }
         });
-    }
+    } // END of destroyted(name)
+
 
     $("table").on('click', '.deleteButton', function(e){
         e.preventDefault();

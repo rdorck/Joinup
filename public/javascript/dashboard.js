@@ -3,6 +3,10 @@ $(document).ready(function(){
     //Mailgun.initialize('sandbox11783fbada334d4a825cde853cce3717.mailgun.org', 'key-0aeded91185230fc8a83b13b4936fd3b');
     var userQuery = new Parse.Query(Parse.User);
 
+    var profileButton = document.getElementById("profileName");
+    profileButton.innerHTML += " "
+    profileButton.innerHTML += Parse.User.current().get("username");
+
     var allUsers = [];
 
     queryUsers();
@@ -29,16 +33,16 @@ $(document).ready(function(){
                     var table = document.getElementById("tableBody");
                     $(".success").show();
                     var row = table.insertRow(0);
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2);
-                    var cell4 = row.insertCell(3);
+                    var cellUserId = row.insertCell(0);
+                    var cellUsername = row.insertCell(1);
+                    var cellEmail = row.insertCell(2);
+                    var cellVerified = row.insertCell(3);
                     var cell5 = row.insertCell(4);
                     var cell6 = row.insertCell(5);
-                    cell1.innerHTML = users[i].id;
-                    cell2.innerHTML = userArray[i];
-                    cell3.innerHTML = userEmails[i];
-                    cell4.innerHTML = " ";
+                    cellUserId.innerHTML = users[i].id;
+                    cellUsername.innerHTML = userArray[i];
+                    cellEmail.innerHTML = userEmails[i];
+                    cellVerified.innerHTML = users[i].get("emailVerified");
                     cell5.innerHTML = "<button class='tableButton addFriend-button'>+ Friend</button>";
                     cell6.innerHTML = "<button class='tableButton reward-button'>Reward</button>";
                 }
