@@ -22,6 +22,7 @@ $(document).ready(function(){
         var dates = [];
         var creators = [];
         var datesRegex = [];
+        var images = [];
 
         query.find({
             success: function(results){
@@ -30,30 +31,40 @@ $(document).ready(function(){
                  */
                 for(var i=0; i < results.length; i++){
                     names[i] = results[i].get('badgeName');
-                    console.log("createdAt:  " + results[i].createdAt);
+                    //console.log("createdAt:  " + results[i].createdAt);
                     dates[i] = results[i].createdAt.toString();
                     var createdAtRegex = dates[i].match(/\b(?:(?:Mon)|(?:Tues?)|(?:Wed(?:nes)?)|(?:Thur?s?)|(?:Fri)|(?:Sat(?:ur)?)|(?:Sun))(?:day)?\b[:\-,]?\s*[a-zA-Z]{3,9}\s+\d{1,2}\s*,?\s*\d{4}/);
                     //console.log("createdAtRegex: " + createdAtRegex);
                     datesRegex[i] = createdAtRegex;
                     //console.log("datesRegex: " + datesRegex[i]);
 
-                    console.log("createdBy: " + results[i].get("createdBy").id);
+                    //console.log("createdBy: " + results[i].get("createdBy").id);
                     creators[i] = results[i].get("createdBy").id;
 
-                    console.log("description: " + results[i].get("badgeDescription"));
+                    //console.log("description: " + results[i].get("badgeDescription"));
                     descriptions[i] = results[i].get("badgeDescription");
+
+                    images[i] = results[i].get("badgeImg");
+                    for(var k = 0; k < images.length; k++){
+                        console.log("images: " + images[k].url().toString());
+                    }
 
                     var table = document.getElementById("tableBody");
                     $(".success").show();
                     var row = table.insertRow(0);
-                    var cellObjectId = row.insertCell(0);
-                    var cellCreatedAt = row.insertCell(1);
-                    var cellCreatedBy = row.insertCell(2)
-                    var cellBadgeName = row.insertCell(3);
+                    var cellBadgeImg = row.insertCell(0)
+                    var cellObjectId = row.insertCell(1);
+                    var cellCreatedAt = row.insertCell(2);
+                    var cellCreatedBy = row.insertCell(3)
+                    var cellBadgeName = row.insertCell(4);
                     var cellBadgeDescription = row.insertCell(4);
-                    var cellEditButton = row.insertCell(5);
-                    var cellDeleteButton = row.insertCell(6);
+                    var cellEditButton = row.insertCell(6);
+                    var cellDeleteButton = row.insertCell(7);
 
+                    //var imgCell = document.getElementById("badge-img");
+                    //imgCell = images[0].url();
+
+                    cellBadgeImg.innerHTML = images[i].url();
                     cellObjectId.innerHTML = results[i].id;
                     cellCreatedAt.innerHTML = datesRegex[i];
                     cellCreatedBy.innerHTML = creators[i];

@@ -85,6 +85,15 @@
                     </div>
                 </div>
 
+                <div>
+                    <label for="Tag" class="control-label">Difficulty:</label>
+                    <input id="easy" type="radio" name="difficulty" value="easy">Easy &nbsp;</input>
+                    <input id="medium" type="radio" name="difficulty" value="medium">Medium &nbsp;</input>
+                    <input id="hard" type="radio" name="difficulty" value="hard">Hard &nbsp;</input>
+                    <input id="expert" type="radio" name="difficulty" value="expert">Expert &nbsp;</input>
+                </div>
+
+                <br/>
                 <div class="form-group">
                     <label for="Tag" class="col-sm-2 control-label">Add Question:</label>
                     <div>
@@ -95,19 +104,19 @@
                     <label for="Tag" class="col-sm-2 control-label"><span style="color: green">Solution </span>Options:</label>
                     <div class="col-sm-4">
                         <input type="text" id="optionA" maxlength="50" class="form-control" value="" name="optionA" placeholder="enter option A || TRUE" required>
-                        <div id="optionAText_feedback"></div>
+                        <div id="optionAText_feedback" class="text_feedback"></div>
                         <br/>
 
                         <input type="text" id="optionB" maxlength="50" class="form-control" value="" name="optionB" placeholder="enter option B || FALSE" required>
-                        <div id="optionBText_feedback"></div>
+                        <div id="optionBText_feedback" class="text_feedback"></div>
                         <br/>
 
                         <input type="text" id="optionC" maxlength="50" class="form-control" value="" name="optionC" placeholder="enter option C" >
-                        <div id="optionCText_feedback"></div>
+                        <div id="optionCText_feedback" class="text_feedback"></div>
                         <br/>
 
                         <input type="text" id="optionD" maxlength="50" class="form-control" value="" name="optionD" placeholder="enter option D" >
-                        <div id="optionDText_feedback"></div>
+                        <div id="optionDText_feedback" class="text_feedback"></div>
                         <br/>
 
                         <label for="Tag" class="control-label">Answer:</label>

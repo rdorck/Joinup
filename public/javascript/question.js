@@ -164,6 +164,40 @@ $(document).ready(function(){
         return ans;
     } // END of selectedAnswer()
 
+    function selectedDifficulty(){
+        var easy = document.getElementById("easy");
+        var medium = document.getElementById("medium");
+        var hard = document.getElementById("hard");
+        var expert = document.getElementById("expert");
+
+        if(easy.checked){
+            var diff = $("#easy").val();
+            medium.checked = false;
+            hard.checked = false;
+            expert.checked = false;
+            console.log("easy " + diff);
+        } else if(medium.checked){
+            var diff = $("#medium").val();
+            easy.checked = false;
+            hard.checked = false;
+            expert.checked = false;
+            console.log("medium " + diff);
+        } else if(hard.checked){
+            var diff = $("#hard").val();
+            easy.checked = false;
+            medium.checked = false;
+            expert.checked = false;
+            console.log("hard " + diff);
+        } else {
+            var diff = $("#expert").val();
+            easy.checked = false;
+            medium.checked = false;
+            hard.checked = false;
+            console.log("expert " + diff);
+        }
+        return diff;
+
+    } // END if selectedDifficulty()
 
     function queryQuestion(){
         var query = new Parse.Query(Question);
@@ -233,6 +267,7 @@ $(document).ready(function(){
         //console.log("Question parent subCategory selected is: " + questionParentSub);
         var answer = selectedAnswer();
         //console.log("Using radio buttons answer is: " + answer);
+        var difficulty = selectedDifficulty();
 
         var queryCategory = new Parse.Query(Category);
         queryCategory.equalTo("categoryName", questionParent);
@@ -242,6 +277,7 @@ $(document).ready(function(){
                 queryCategory.get(results[0].id, {
                     success: function(object){
                         newQuestion.set("createdBy", user);
+                        newQuestion.set("difficulty", difficulty);
                         newQuestion.set("questionText", question);
                         newQuestion.set("answer", answer);
                         newQuestion.set("timer", timer);
@@ -297,31 +333,6 @@ $(document).ready(function(){
                             });
                         }
 
-                        //var fileIn = $("#question-img-input")[0];
-                        //var filePath = $("#question-img-input").val();
-                        //var fileName = filePath.split("\\").pop();
-                        //
-                        //if(fileIn.files.length > 0){
-                        //    var file = fileIn.files[0];
-                        //    var parseFile = new Parse.File(fileName, file);
-                        //    parseFile.save({
-                        //        success: function(){
-                        //
-                        //        }, error: function(error){
-                        //            console.log(error.message);
-                        //        }
-                        //    }).then(function(inFile){
-                        //        newQuestion.set("questionFile", inFile);
-                        //        newQuestion.save({
-                        //            success: function(){
-                        //                console.log("File successfully saved");
-                        //                queryQuestion();
-                        //            }, error: function(error){
-                        //                console.log(error.message);
-                        //            }
-                        //        });
-                        //    });
-                        //}
                         else {
                             newQuestion.save().then(function(newQuestion) {
                                 alert("Question successfully saved by: " + user.get("username"));

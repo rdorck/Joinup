@@ -115,6 +115,10 @@ body {
     font-size: 50px;
 }
 
+.text_feedback {
+    color: #f4801f;
+}
+
 .main #categoryNameInput:focus {
     /*background-color: #ffd700;*/
     color: black;
