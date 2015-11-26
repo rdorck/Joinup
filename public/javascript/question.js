@@ -164,6 +164,20 @@ $(document).ready(function(){
         return ans;
     } // END of selectedAnswer()
 
+    /*
+     *
+     */
+    function isRanking(){
+        var on = document.getElementById("radioOn");
+
+        if(on.checked){
+            return true;
+        }
+        else {
+            return false;
+        }
+    } // END of isRanking()
+
     function selectedDifficulty(){
         var easy = document.getElementById("easy");
         var medium = document.getElementById("medium");
@@ -175,25 +189,25 @@ $(document).ready(function(){
             medium.checked = false;
             hard.checked = false;
             expert.checked = false;
-            console.log("easy " + diff);
+            //console.log("easy " + diff);
         } else if(medium.checked){
             var diff = $("#medium").val();
             easy.checked = false;
             hard.checked = false;
             expert.checked = false;
-            console.log("medium " + diff);
+            //console.log("medium " + diff);
         } else if(hard.checked){
             var diff = $("#hard").val();
             easy.checked = false;
             medium.checked = false;
             expert.checked = false;
-            console.log("hard " + diff);
+            //console.log("hard " + diff);
         } else {
             var diff = $("#expert").val();
             easy.checked = false;
             medium.checked = false;
             hard.checked = false;
-            console.log("expert " + diff);
+            //console.log("expert " + diff);
         }
         return diff;
 
@@ -256,17 +270,28 @@ $(document).ready(function(){
         var optionD = $("#optionD").val();
         var timer = $("#timer").val();
 
-        newQuestion.addUnique("options", optionA);
-        newQuestion.addUnique("options", optionB);
-        newQuestion.addUnique("options", optionC);
-        newQuestion.addUnique("options", optionD);
+        if(isRanking() == true) {
+            console.log("ranking is on");
+            newQuestion.set("mostCorrect", optionA);
+            newQuestion.set("partiallyCorrect", optionB);
+            newQuestion.set("partiallyIncorrect", optionC);
+            newQuestion.set("mostIncorrect", optionD);
+            newQuestion.set("answer", optionA);
+        } else {
+            newQuestion.addUnique("options", optionA);
+            newQuestion.addUnique("options", optionB);
+            newQuestion.addUnique("options", optionC);
+            newQuestion.addUnique("options", optionD);
+            var answer = selectedAnswer();
+            newQuestion.set("answer", answer);
+            //console.log("Using radio buttons answer is: " + answer);
+        }
 
         var questionParent = selectedParentCategory();
         //console.log("Question parent category selected is: " + questionParent);
         var questionParentSub = selectedParentSubCategory();
         //console.log("Question parent subCategory selected is: " + questionParentSub);
-        var answer = selectedAnswer();
-        //console.log("Using radio buttons answer is: " + answer);
+
         var difficulty = selectedDifficulty();
 
         var queryCategory = new Parse.Query(Category);
@@ -279,7 +304,6 @@ $(document).ready(function(){
                         newQuestion.set("createdBy", user);
                         newQuestion.set("difficulty", difficulty);
                         newQuestion.set("questionText", question);
-                        newQuestion.set("answer", answer);
                         newQuestion.set("timer", timer);
                         newQuestion.set("parentCategory", object);
                         if(selectedParentSubCategory()){

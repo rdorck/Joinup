@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -87,7 +88,7 @@
 
                 <div>
                     <label for="Tag" class="control-label">Difficulty:</label>
-                    <input id="easy" type="radio" name="difficulty" value="easy">Easy &nbsp;</input>
+                    <input id="easy" type="radio" name="difficulty" value="easy" checked>Easy &nbsp;</input>
                     <input id="medium" type="radio" name="difficulty" value="medium">Medium &nbsp;</input>
                     <input id="hard" type="radio" name="difficulty" value="hard">Hard &nbsp;</input>
                     <input id="expert" type="radio" name="difficulty" value="expert">Expert &nbsp;</input>
@@ -100,22 +101,36 @@
                         <input type="textarea" id="question-input" class="form-control" value="" name="questionText" placeholder="enter question here" required>
                     </div>
                     <br>
-                    <h5 class="alert alert-warning">Options must be less than or equal to 50 characters to fit on phone screen</h5>
+                    <h5 class="alert alert-warning">Options must be ≤ 50 characters to fit on phone screen.
+                        Options will not appear in this order during the game, they are randomized</h5>
+                    <br>
+
+                    <label for="Tag" class="control-label">Ranking:</label>
+                    <h5>With this option ON, enter the choices with option A being the most correct answer, option B as partially correct,
+                        option C as partially incorrect, and option D as the most incorrect.  Default setting is OFF, indicating there is
+                        a single solution, which can be chosen below in Answer.</h5>
+                    <div>
+                        <input id="radioOn" type="radio" name="ranking" value="on">ON &nbsp;</input>
+                        <input id="radioOff" type="radio" name="ranking" value="off" checked>OFF &nbsp;</input>
+                    </div>
+                    <br>
+
                     <label for="Tag" class="col-sm-2 control-label"><span style="color: green">Solution </span>Options:</label>
                     <div class="col-sm-4">
-                        <input type="text" id="optionA" maxlength="50" class="form-control" value="" name="optionA" placeholder="enter option A || TRUE" required>
+
+                        <input type="text" id="optionA" maxlength="50" class="form-control" value="" name="optionA" placeholder="enter option A" required>
                         <div id="optionAText_feedback" class="text_feedback"></div>
                         <br/>
 
-                        <input type="text" id="optionB" maxlength="50" class="form-control" value="" name="optionB" placeholder="enter option B || FALSE" required>
+                        <input type="text" id="optionB" maxlength="50" class="form-control" value="" name="optionB" placeholder="enter option B" required>
                         <div id="optionBText_feedback" class="text_feedback"></div>
                         <br/>
 
-                        <input type="text" id="optionC" maxlength="50" class="form-control" value="" name="optionC" placeholder="enter option C" >
+                        <input type="text" id="optionC" maxlength="50" class="form-control" value="" name="optionC" placeholder="enter option C" required>
                         <div id="optionCText_feedback" class="text_feedback"></div>
                         <br/>
 
-                        <input type="text" id="optionD" maxlength="50" class="form-control" value="" name="optionD" placeholder="enter option D" >
+                        <input type="text" id="optionD" maxlength="50" class="form-control" value="" name="optionD" placeholder="enter option D" required>
                         <div id="optionDText_feedback" class="text_feedback"></div>
                         <br/>
 
@@ -126,9 +141,6 @@
                             <input id="radioC" type="radio" name="answer" value="optionC">Option C &nbsp;</input>
                             <input id="radioD" type="radio" name="answer" value="optionD">Option D &nbsp;</input>
                         </div>
-
-                        <!-- Original answer input technique -->
-                        <!--<input type="text" id="answer" class="form-control" value="" name="answer" placeholder="correct answer (ie. optionA)" required>-->
 
                     </div>
                 </div>
