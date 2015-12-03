@@ -137,6 +137,12 @@ app.get('/users', function(req, res) {
 });
 
 
+//Routes for game homepage
+app.get('/gameHome', function(req, res) {
+    res.render('gameHome', {});
+});
+
+
 // Routes for badges, where admin can edit contents
 app.get('/badges', function(req, res) {
     res.render('badges', {badgeId: " ", username: " "});
