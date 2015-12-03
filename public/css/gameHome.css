@@ -1,0 +1,134 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+    background-color: #f7f7f7;
+    overflow: hidden;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+
+
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+    border: 0;
+}
+
+
+
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar ul li {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.sidebar .sidebar-nav.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        width: 250px;
+
+        /*background: -webkit-linear-gradient(left top, lightblue , #ffd700); !* For Safari 5.1 to 6.0 *!*/
+        /*background: -o-linear-gradient(bottom right, lightblue, #ffd700); !* For Opera 11.1 to 12.0 *!*/
+        /*background: -moz-linear-gradient(bottom right, lightblue, #ffd700); !* For Firefox 3.6 to 15 *!*/
+        background: linear-gradient(to bottom, #f4801f , #f7f7f7); /* Standard syntax */;
+        background-color: #f4801f;
+        border-right: 1px solid #eee;
+    }
+    
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+.nav-sidebar > li > a {
+    color: white;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #5e5e5e;
+}
+
+
+.btn-block{
+    text-align: center;
+    position: relative;
+    max-width: 330px;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    margin-top:2em;
+}
+
+.button-container{
+    background-color: #f4801f;
+    max-width: 330px;
+    padding: 15px;
+    margin:  auto;
+    margin-top:2em;
+    margin-left:40vw;
+}
+
+#logo{
+    color:dodgerblue;
+    text-align: center;
+    padding-left:1em;
+}
+
+.logo-div{
+   width:100vw;
+}
+
+@media(max-width:768px){
+    .button-container{
+        margin-left:auto;
+    }
+    
+    .logo-div{
+      margin-left:auto;
+    }
+    
+    #logo{
+        padding:0px;
+    }
+}
