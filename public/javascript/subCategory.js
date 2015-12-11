@@ -55,7 +55,7 @@ $(document).ready(function(){
     /*
      *  Called from querySubCategories() to find a sub-category's parent category
      */
-    function linkParent(objectId, createdDate, childName, parentId){
+    function linkParent(objectId, createdDate, childName, minScore, parentId){
         console.log("createdDate: " + createdDate);
         var queryParent = new Parse.Query(Category);
         var parentRelated = [];
@@ -73,13 +73,15 @@ $(document).ready(function(){
                     var cellCreatedAt = row.insertCell(1);
                     var cellName = row.insertCell(2);
                     var cellParent = row.insertCell(3);
-                    var cellEditButton = row.insertCell(4);
-                    var cellDeleteButton = row.insertCell(5);
+                    var cellMinPassingScore = row.insertCell(4);
+                    var cellEditButton = row.insertCell(5);
+                    var cellDeleteButton = row.insertCell(6);
 
                     cellId.innerHTML = objectId;
                     cellCreatedAt.innerHTML = createdDate;
                     cellName.innerHTML = childName;
                     cellParent.innerHTML = parentRelated[j];
+                    cellMinPassingScore.innerHTML = minScore + "%";
                     cellEditButton.innerHTML = "<button class='table-button editButton'>Edit</button>";
                     cellDeleteButton.innerHTML = "<button class='table-button deleteButton'>Delete</button>";
                 }
@@ -102,6 +104,7 @@ $(document).ready(function(){
         var dates = [];
         var datesRegex = [];
         var parents = [];
+        var minPassingScores = [];
         query.find({
             success: function(results){
                 /* captured all sub-categories, now separate them into respective rows
@@ -113,8 +116,9 @@ $(document).ready(function(){
                     var createdAtRegex = dates[i].match(/\b(?:(?:Mon)|(?:Tues?)|(?:Wed(?:nes)?)|(?:Thur?s?)|(?:Fri)|(?:Sat(?:ur)?)|(?:Sun))(?:day)?\b[:\-,]?\s*[a-zA-Z]{3,9}\s+\d{1,2}\s*,?\s*\d{4}/);
                     datesRegex[i] = createdAtRegex;
                     parents[i] = results[i].get('parentCategory');
+                    minPassingScores[i] = results[i].get('minPassingScore')
                     //console.log("Sending parents[i]: " + parents[i].id + " to linkParent()");
-                    linkParent(results[i].id, datesRegex[i], names[i], parents[i].id);
+                    linkParent(results[i].id, datesRegex[i], names[i], minPassingScores[i],  parents[i].id);
 
                 }
                 return names;
@@ -129,6 +133,7 @@ $(document).ready(function(){
         var newSubCategory = new SubCategory();
         var user = Parse.User.current();
         var subCategory = $("#subCategoryName-input").val();
+        var minPassingScore = $("#subCategoryMinPassingScore-input").val();
 
         var subParent = selectedParent();
         //console.log("returned from selectedParent is: " + subParent);
@@ -142,6 +147,7 @@ $(document).ready(function(){
                         //console.log(object.id);
                         newSubCategory.set("createdBy", user);
                         newSubCategory.set("subCategoryName", subCategory);
+                        newSubCategory.set("minPassingScore", minPassingScore);
                         newSubCategory.set("parentCategory", object);
 
                         var fileIn = $("#subCategory-img-input")[0];
